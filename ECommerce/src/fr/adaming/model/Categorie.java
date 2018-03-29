@@ -1,12 +1,16 @@
 package fr.adaming.model;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +25,10 @@ public class Categorie {
 	private String nomCategorie;
 	private Byte[] photo;
 	private String description;
+	
+	// Transformation de l'association UML en JAVA
+	@OneToMany(mappedBy="cat")	
+	private List<Produit> listeProduits;
 	
 	//Déclaration des constructeurs
 	public Categorie() {

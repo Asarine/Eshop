@@ -27,6 +27,8 @@ public class LigneCommande {
 	@JoinColumn(name="com_id",referencedColumnName="id_com")
 	private Commande commande;
 	
+	@ManyToOne
+	@JoinColumn(name="pr_id", referencedColumnName="id_pr")
 	private Produit prod;
 	
 	//Déclaration des constructeurs

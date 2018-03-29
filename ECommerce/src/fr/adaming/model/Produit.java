@@ -1,11 +1,18 @@
 package fr.adaming.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.jboss.resteasy.spi.touri.MappedBy;
 
 @Entity
 @Table(name="produits")
@@ -23,6 +30,13 @@ public class Produit {
 	private boolean selectionne;
 	private byte photo;
 	
+	// Transformation de l'association UML en JAVA
+	@ManyToOne
+	@JoinColumn(name="cat_id", referencedColumnName="id_cat")
+	private Categorie cat;
+	
+	@OneToMany(mappedBy="prod")
+	private List<LigneCommande> listeLCommande;
 	
 	// Constructeurs
 	public Produit() {
