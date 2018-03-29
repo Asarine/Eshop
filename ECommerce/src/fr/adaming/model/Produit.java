@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.jboss.resteasy.spi.touri.MappedBy;
 
 @Entity
 @Table(name = "produits")
@@ -103,10 +102,6 @@ public class Produit {
 
 	public int getQuantite() {
 		return quantite;
-	}
-
-	public void setQuantité(int quantite) {
-		this.quantite = quantite;
 	}
 
 	public boolean isSelectionne() {

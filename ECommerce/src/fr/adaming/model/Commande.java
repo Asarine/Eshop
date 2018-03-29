@@ -25,6 +25,8 @@ public class Commande {
 	@Column(name="id_com")
 	private Long idCommande;
 	
+	
+
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
@@ -61,6 +63,18 @@ public class Commande {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public Client getCl() {
+		return cl;
+	}
+	public void setCl(Client cl) {
+		this.cl = cl;
+	}
+	public List<LigneCommande> getListeLCommande() {
+		return listeLCommande;
+	}
+	public void setListeLCommande(List<LigneCommande> listeLCommande) {
+		this.listeLCommande = listeLCommande;
 	}
 	
 	// Génération toString

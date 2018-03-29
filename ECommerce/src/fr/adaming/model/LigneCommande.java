@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -47,6 +46,22 @@ public class LigneCommande {
 		this.idLComm = idLComm;
 		this.quantite = quantite;
 		this.prix = prix;
+	}
+
+	public Commande getCommande() {
+		return commande;
+	}
+
+	public void setCommande(Commande commande) {
+		this.commande = commande;
+	}
+
+	public Produit getProd() {
+		return prod;
+	}
+
+	public void setProd(Produit prod) {
+		this.prod = prod;
 	}
 
 	//Déclaration des accesseurs
