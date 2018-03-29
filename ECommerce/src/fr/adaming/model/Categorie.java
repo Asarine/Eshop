@@ -9,78 +9,95 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="categories")
+@Table(name = "categories")
 public class Categorie {
-	
-	//Déclaration des attributs
+
+	// Déclaration des attributs
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_cat")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_cat")
 	private long idCategorie;
 	private String nomCategorie;
-	private Byte[] photo;
+	@Lob
+	private byte[] photo;
 	private String description;
-	
+
 	// Transformation de l'association UML en JAVA
-	@OneToMany(mappedBy="cat")	
+	@OneToMany(mappedBy = "cat")
 	private List<Produit> listeProduits;
-	
-	//Déclaration des constructeurs
+
+	// Déclaration des constructeurs
 	public Categorie() {
 		super();
 	}
-	public Categorie(String nomCategorie, Byte[] photo, String description) {
+
+	public Categorie(String nomCategorie, byte[] photo, String description) {
 		super();
 		this.nomCategorie = nomCategorie;
 		this.photo = photo;
 		this.description = description;
 	}
-	public Categorie(long idCategorie, String nomCategorie, Byte[] photo, String description) {
+
+	public Categorie(long idCategorie, String nomCategorie, byte[] photo, String description) {
 		super();
 		this.idCategorie = idCategorie;
 		this.nomCategorie = nomCategorie;
 		this.photo = photo;
 		this.description = description;
 	}
-	
-	//Déclaration des accesseurs
+
+	// Déclaration des accesseurs
 	public long getIdCategorie() {
 		return idCategorie;
 	}
+
 	public void setIdCategorie(long idCategorie) {
 		this.idCategorie = idCategorie;
 	}
+
 	public String getNomCategorie() {
 		return nomCategorie;
 	}
+
 	public void setNomCategorie(String nomCategorie) {
 		this.nomCategorie = nomCategorie;
 	}
-	public Byte[] getPhoto() {
+
+	public byte[] getPhoto() {
 		return photo;
 	}
-	public void setPhoto(Byte[] photo) {
+
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
+
+	public List<Produit> getListeProduits() {
+		return listeProduits;
+	}
+
+	public void setListeProduits(List<Produit> listeProduits) {
+		this.listeProduits = listeProduits;
+	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	//Redéfinition de la méthode ToString
+
+	// Redéfinition de la méthode ToString
 	@Override
 	public String toString() {
 		return "Categorie [idCategorie=" + idCategorie + ", nomCategorie=" + nomCategorie + ", photo="
 				+ Arrays.toString(photo) + ", description=" + description + "]";
 	}
-	
-	
-	
+
 }
