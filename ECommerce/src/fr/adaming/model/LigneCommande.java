@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +21,13 @@ public class LigneCommande {
 	private long idLComm;
 	private int quantite;
 	private double prix;
+	
+	//Transformation de l'association UML en Java
+	@ManyToOne
+	@JoinColumn(name="com_id",referencedColumnName="id_com")
+	private Commande commande;
+	
+	private Produit prod;
 	
 	//Déclaration des constructeurs
 	public LigneCommande() {

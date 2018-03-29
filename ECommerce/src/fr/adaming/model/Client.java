@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,7 +28,9 @@ public class Client {
 	private String mdp;
 	
 	//Transformation de l'association UML en Java
-
+	@OneToMany(mappedBy="cl")
+	private List<Commande> listeCommandes;
+	
 	//Déclaration des constructeurs
 	public Client() {
 		super();
@@ -121,6 +124,14 @@ public class Client {
 
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
+	}
+
+	public List<Commande> getListeCommandes() {
+		return listeCommandes;
+	}
+
+	public void setListeCommandes(List<Commande> listeCommandes) {
+		this.listeCommandes = listeCommandes;
 	}
 
 	//Redéfinition de la méthode toString
