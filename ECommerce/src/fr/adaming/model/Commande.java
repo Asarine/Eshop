@@ -29,6 +29,7 @@ public class Commande {
 
 	@Temporal(TemporalType.DATE)
 	private Date date;
+	private double prix;
 	
 	//Transformation des associations UML en Java
 	@ManyToOne
@@ -41,16 +42,20 @@ public class Commande {
 	public Commande() {
 		super();
 	}
-	public Commande(Date date) {
+	
+	public Commande(Date date, double prix) {
 		super();
 		this.date = date;
+		this.prix = prix;
 	}
-	public Commande(Long idCommande, Date date) {
+
+	public Commande(Long idCommande, Date date, double prix) {
 		super();
 		this.idCommande = idCommande;
 		this.date = date;
+		this.prix = prix;
 	}
-	
+
 	// Getters et setters
 	public Long getIdCommande() {
 		return idCommande;
@@ -77,6 +82,17 @@ public class Commande {
 		this.listeLCommande = listeLCommande;
 	}
 	
+	
+	public double getPrix() {
+		return prix;
+	}
+
+
+	public void setPrix(double prix) {
+		this.prix = prix;
+	}
+
+
 	// Génération toString
 	@Override
 	public String toString() {
