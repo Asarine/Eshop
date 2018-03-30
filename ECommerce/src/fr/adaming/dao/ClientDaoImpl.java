@@ -29,6 +29,29 @@ public class ClientDaoImpl implements IClientDao{
 		em.persist(cl);
 		return cl;
 	}
+
+	@Override
+	public int modifClient(Client cl) {
+		String req1="UPDATE Client cl SET cl.nomClient=:pNom, cl.adresse=:pAdresse, cl.codePostal=:pCodepost, cl.ville=:pVille, cl.email=:pMail, cl.tel=:pTel, cl.mdp=:pMdp WHERE cl.idClient=:pId";
+		Query query1 =em.createQuery(req1);
+		query1.setParameter("pNom", cl.getNomClient());
+		query1.setParameter("pAdresse", cl.getAdresse());
+		query1.setParameter("pCodepost", cl.getCodePostal());
+		query1.setParameter("pVille", cl.getVille());
+		query1.setParameter("pMail", cl.getEmail());
+		query1.setParameter("pTel", cl.getTel());
+		query1.setParameter("pMdp", cl.getMdp());
+		query1.setParameter("pId", cl.getIdClient());
+		return query1.executeUpdate();
+	}
+
+	@Override
+	public int deleteClient(Client cl) {
+		String req2="DELETE Client cl WHERE cl.idClient=:pId";
+		Query query2=em.createQuery(req2);
+		query2.setParameter("pId", cl.getIdClient());
+		return query2.executeUpdate();
+	}
 	
 	
 	

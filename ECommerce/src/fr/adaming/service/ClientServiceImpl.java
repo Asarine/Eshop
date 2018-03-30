@@ -14,7 +14,7 @@ public class ClientServiceImpl implements IClientService {
 	//Transformation de l'association UML en Java
 	@EJB
 	private IClientDao clientDao;
-	
+
 	@Override
 	public Client isExist(Client cl) {
 		return clientDao.isExist(cl);
@@ -24,6 +24,18 @@ public class ClientServiceImpl implements IClientService {
 	public Client addClient(Client cl) {
 		return clientDao.addClient(cl);
 	}
+
+	@Override
+	public int modifClient(Client cl) {
+		return clientDao.modifClient(cl);
+	}
+
+	@Override
+	public int deleteClient(Client cl) {
+		return clientDao.deleteClient(cl);
+	}
+	
+	
 
 
 }

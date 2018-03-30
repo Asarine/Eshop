@@ -1,13 +1,13 @@
 package fr.adaming.managedBean;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
 import fr.adaming.service.IClientService;
@@ -18,7 +18,6 @@ public class ClientManagedBean implements Serializable {
 	
 	//Attributs
 	private Client client;
-	private List<Client> listeCl;
 	
 	@EJB
 	private IClientService clientService;
@@ -38,14 +37,6 @@ public class ClientManagedBean implements Serializable {
 		this.client = client;
 	}
 	
-	public List<Client> getListeCl() {
-		return listeCl;
-	}
-
-	public void setListeCl(List<Client> listeCl) {
-		this.listeCl = listeCl;
-	}
-
 	//Méthodes métiers
 	public String seConnecter(){
 		try{
@@ -70,5 +61,31 @@ public class ClientManagedBean implements Serializable {
 			return "ajoutClient";
 		}
 	}
+	
+	public String modifierClient(){
+		HttpSession maSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		Client clIn=(Client) maSession.getAttribute("clientSession");
+		this.client.setIdClient(clIn.getIdClient());
+		int verif=clientService.modifClient(this.client);
+		if (verif!=0){
+			maSession.setAttribute("clientSession", this.client);
+			return "accueilClient";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Les modifications n'ont pas été effectuées."));
+			return "modifClient";
+		}
+	}
 
+	public String suppClient(){
+		HttpSession maSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		Client clIn=(Client) maSession.getAttribute("clientSession");
+		int verif=clientService.deleteClient(clIn);
+		if (verif!=0){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le client a bien été supprimé."));
+			return "accueil";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le client n'a pas été supprimé."));
+			return "accueilClient";
+		}
+	}
 }

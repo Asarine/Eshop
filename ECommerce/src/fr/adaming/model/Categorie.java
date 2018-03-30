@@ -13,6 +13,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "categories")
@@ -27,6 +28,8 @@ public class Categorie {
 	@Lob
 	private byte[] photo;
 	private String description;
+	@Transient
+	private String image;
 
 	// Transformation de l'association UML en JAVA
 	@OneToMany(mappedBy = "cat")
@@ -91,6 +94,14 @@ public class Categorie {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	// Redéfinition de la méthode ToString

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<title>Modification Client</title>
+</h:head>
+<h:body>
+<h1 style="color: violet; text-align: center">Modifier client</h1>
+	<h:form>
+		<h:panelGrid columns="2">
+Nom : <h:inputText value="#{clMB.client.nomClient}" />
+Adresse : <h:inputText value="#{clMB.client.adresse}" />
+Code postal : <h:inputText value="#{clMB.client.codePostal}" />
+Ville : <h:inputText value="#{clMB.client.ville}" />
+Mail : <h:inputText value="#{clMB.client.email}" />
+Téléphone : <h:inputText value="#{clMB.client.tel}" />
+Mot de passe : <h:inputSecret />
+Veuillez confirmer votre mot de passe : <h:inputSecret value="#{clMB.client.mdp}" />
+			<h:commandButton value="Modifier" action="#{clMB.modifierClient}"></h:commandButton>
+		</h:panelGrid>
+	</h:form>
+
+<h:messages style="color:crimson"/>
+
+</h:body>
+</html>
