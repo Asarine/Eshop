@@ -1,5 +1,7 @@
 package fr.adaming.service;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
@@ -17,5 +19,11 @@ public class ClientServiceImpl implements IClientService {
 	public Client isExist(Client cl) {
 		return clientDao.isExist(cl);
 	}
+
+	@Override
+	public Client addClient(Client cl) {
+		return clientDao.addClient(cl);
+	}
+
 
 }

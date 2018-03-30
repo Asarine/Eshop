@@ -1,5 +1,7 @@
 package fr.adaming.dao;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +23,13 @@ public class ClientDaoImpl implements IClientDao{
 		query.setParameter("pMdp", cl.getMdp());
 		return (Client) query.getSingleResult();
 	}
+
+	@Override
+	public Client addClient(Client cl) {
+		em.persist(cl);
+		return cl;
+	}
+	
 	
 	
 
