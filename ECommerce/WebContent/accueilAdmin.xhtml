@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+<title>Page Accueil Admin</title>
+
+</h:head>
+
+<h:body>
+
+<h:form>
+
+<p:breadCrumb>
+    <p:menuitem value="Accueil Administrateur" url="accueilAdmin.xhtml" />
+    <p:menuitem value="Ajouter produit" url="ajoutpr.xhtml" />
+    <p:menuitem value="Modifier produit" url="modifpr.xhtml" />
+    <p:menuitem value="Rechercher produit" url="rechpr.xhtml" />
+    <p:menuitem value="Supprimer produit" url="supppr.xhtml" />
+</p:breadCrumb>
+
+</h:form>
+
+
+<!-- Inclure mon template dns la page accueil admin sans modif -->
+<ui:insert>
+<ui:include src="/template/layout.xhtml"></ui:include>
+</ui:insert>
+
+<!-- Inclure mon template dns la page loginAdmin sans modif -->
+<ui:insert>
+<ui:include src="/template/layout.xhtml"></ui:include>
+</ui:insert>
+
+</h:body>
+
+</html>

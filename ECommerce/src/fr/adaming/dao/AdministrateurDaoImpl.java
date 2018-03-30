@@ -17,7 +17,7 @@ public class AdministrateurDaoImpl implements IAdministrateurDao {
 	public Administrateur isExist(Administrateur ad) {
 		
 		// Création de la requête jpql
-		String req = "SELECT adm FROM Administrateur adm WHERE adm.mail=:pMail AND adm.mdp=:pMdp";
+		String req = "SELECT ad FROM Administrateur ad WHERE ad.mail=:pMail AND ad.mdp=:pMdp";
 		
 		// Création objet query
 		Query query=em.createQuery(req);

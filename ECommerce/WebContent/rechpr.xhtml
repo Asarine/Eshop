@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+<title>Page Login</title>
+
+</h:head>
+
+<h:body>
+
+<h:form>
+
+<p:breadCrumb>
+    <p:menuitem value="Accueil Administrateur" url="accueilAdmin.xhtml" />
+    <p:menuitem value="Ajouter produit" url="ajoutpr.xhtml" />
+    <p:menuitem value="Modifier produit" url="modifpr.xhtml" />
+    <p:menuitem value="Rechercher produit" url="rechpr.xhtml" />
+    <p:menuitem value="Supprimer produit" url="supppr.xhtml" />
+</p:breadCrumb>
+
+</h:form>
+
+<h:form>
+
+<h:panelGrid columns="2">
+ID: <h:inputText value="#{prMB.produit.idProduit}"/>
+
+<h:commandButton value="Rechercher" action="#{prMB.rechercherProduit}" update="@all"></h:commandButton>
+
+</h:panelGrid>
+
+</h:form>
+
+<h:form>
+
+<p:dataTable var="pr" value="#{prMB.produit}" rendered="prMB.indice">
+    <p:column headerText="Id">
+        <h:outputText value="#{pr.idProduit}" />
+    </p:column>
+ 
+    <p:column headerText="Designation">
+        <h:outputText value="#{pr.designation}" />
+    </p:column>
+ 
+    <p:column headerText="Description">
+        <h:outputText value="#{pr.designation}" />
+    </p:column>
+ 
+    <p:column headerText="Prix">
+        <h:outputText value="#{pr.prix}" />
+    </p:column>
+    
+    <p:column headerText="Quantité">
+        <h:outputText value="#{pr.quantité}" />
+    </p:column>
+    
+    <p:column headerText="Selectionne">
+        <h:outputText value="#{pr.selectionne}" />
+    </p:column>
+    
+    <p:column headerText="Photo">
+        <h:outputText value="#{pr.photo}" />
+    </p:column>
+</p:dataTable>
+
+</h:form>
+
+<h:message style="color : red"/>
+
+</h:body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+
+<title>Page Layout</title>
+<h:outputStylesheet library="css" name="/layout.css"/>
+
+</h:head>
+
+<h:body>
+
+<!-- Inclure mon header et ajouter du style -->
+<div id="head">
+<!-- Définir l'endroit où mon header doit être inclu -->
+<ui:insert name="header">
+	<!-- Inclure concretement mon header -->
+	<ui:include src="/template/header.xhtml"></ui:include>
+</ui:insert>
+</div>
+
+
+<!-- Inclure mon corps et ajouter du style -->
+<div id="corps">
+<!-- Définir l'endroit où mon corps doit être inclu -->
+<ui:insert name="corps">
+	<!-- Inclure concretement mon corps -->
+	<ui:include src="/template/corps.xhtml"></ui:include>
+</ui:insert>
+</div>
+
+
+<!-- Inclure mon footer et ajouter du style -->
+<div id="foot">
+<!-- Définir l'endroit où mon footer doit être inclu -->
+<ui:insert name="footer">
+	<!-- Inclure concretement mon footer -->
+	<ui:include src="/template/footer.xhtml"></ui:include>
+</ui:insert>
+</div>
+
+
+</h:body>
+
+</html>

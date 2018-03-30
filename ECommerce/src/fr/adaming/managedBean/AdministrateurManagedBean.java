@@ -2,6 +2,7 @@ package fr.adaming.managedBean;
 
 import java.io.Serializable;
 
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -15,13 +16,14 @@ import fr.adaming.service.IAdministrateurService;
 public class AdministrateurManagedBean implements Serializable {
 	
 	// Transformation de l'association UML en JAVA
+	@EJB
 	private IAdministrateurService adminService;
 	
 	private Administrateur administrateur;
 	
 	// Constructeurs
 	public AdministrateurManagedBean() {
-		super();
+		this.administrateur=new Administrateur();
 	}
 
 	// Getters et setters
@@ -51,21 +53,13 @@ public class AdministrateurManagedBean implements Serializable {
 			// Ajouter l'administrateur comme attribut de la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", adOut);
 			
-			return "accueil";
+			return "accueilAdmin";
+			
 		}catch (Exception ex){
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'identifiant ou le mot de passe est incorrecte"));
 			
 		}
-		
-		return "loginAdmin";
-		
-	}
-
-public String seDeconnecter(){
-		
-		// Fermer la session http ouverte
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		
 		return "loginAdmin";
 		
