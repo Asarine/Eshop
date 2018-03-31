@@ -1,10 +1,12 @@
 package fr.adaming.service;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateful;
 
 import fr.adaming.dao.IProduitDao;
 import fr.adaming.model.Produit;
 
+@Stateful
 public class ProduitServiceImpl implements IProduitService {
 
 	@EJB
