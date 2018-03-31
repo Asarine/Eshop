@@ -34,5 +34,13 @@ public class CategorieDaoImpl implements ICategorieDao{
 		return listeCat;
 	}
 
+	@Override
+	public int deleteCategorie(Categorie cat) {
+		String req1="DELETE Categorie AS cat WHERE cat.idCategorie=:pId";
+		Query query1=em.createQuery(req1);
+		query1.setParameter("pId", cat.getIdCategorie());
+		return query1.executeUpdate();
+		}
+
 
 }

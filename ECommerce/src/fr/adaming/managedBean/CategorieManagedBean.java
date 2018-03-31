@@ -3,12 +3,15 @@ package fr.adaming.managedBean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
 import org.primefaces.model.UploadedFileWrapper;
 
@@ -22,6 +25,8 @@ public class CategorieManagedBean implements Serializable{
 	//Attributs
 	private Categorie cat;
 	private UploadedFile uf;
+	private List<Categorie> listecat;
+	private HttpSession maSession;
 	
 	@EJB
 	private ICategorieService categorieService;
@@ -33,7 +38,12 @@ public class CategorieManagedBean implements Serializable{
 		this.uf=new UploadedFileWrapper();
 	}
 	
-	
+	@PostConstruct
+	public void inti(){
+		this.listecat=categorieService.getAllCategorie();
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categorieList", listecat);
+		this.maSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	}
 
 	//Getter et setter
 	public Categorie getCat() {
@@ -42,11 +52,16 @@ public class CategorieManagedBean implements Serializable{
 
 	public void setCat(Categorie cat) {
 		this.cat = cat;
+	}	
+	
+	public List<Categorie> getListecat() {
+		return listecat;
 	}
 
+	public void setListecat(List<Categorie> listecat) {
+		this.listecat = listecat;
+	}
 
-	
-	
 	public UploadedFile getUf() {
 		return uf;
 	}
@@ -56,21 +71,27 @@ public class CategorieManagedBean implements Serializable{
 	}
 
 	//Méthode métier
-	public String ajoutCategorie(){
+	public void ajoutCategorie(){
 		this.cat.setNomCategorie("Suricate");
 		this.cat.setDescription("Un petit animal tout mignon mignon");
 		this.cat.setPhoto(this.uf.getContents());
 		Categorie catAjout=categorieService.addCategorie(cat);
 		if (catAjout.getIdCategorie()!=0){
-			List<Categorie> listecat=categorieService.getAllCategorie();
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categorieList", listecat);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'ajout a été effectué."));
-			return "accueilClient";
 		}else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'ajout n'a pas été effectué."));
-			return "accueilClient";
 		}
 	}
 	
+	public void suppCategorie(){
+		int verif=categorieService.deleteCategorie(this.cat);
+		if (verif!=0){
+			List<Categorie> listeCategories=categorieService.getAllCategorie();
+			maSession.setAttribute("categorieList", listeCategories);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Suppression effectuée"));
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La suppression n'a pas été effectuée."));
+		}
+	}
 
 }

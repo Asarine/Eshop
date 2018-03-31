@@ -14,26 +14,22 @@ Accueil client
 <h:form>
 <h:commandLink value="Modifier" action="modifClient"/>
 <h:commandLink value="Supprimer" action="#{clMB.suppClient}"/>
+<p:carousel value="#{catMB.listecat}" headerText="Categories" var="cat" itemStyle="text-align:center" responsive="true">
+        <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+            <f:facet name="header">
+                <h:graphicImage value="#{cat.image}" style="height:100px;width:100px"/>
+            </f:facet>
+ 
+            <h:outputText value="Nom" />
+            <h:outputText value="#{cat.nomCategorie}" />
+ 
+            <h:outputText value="Description" />
+            <h:outputText value="#{cat.description}" />
+        </p:panelGrid>
+
+    </p:carousel>
 <h:messages style="color:crimson"/>
-<p:dataTable var="cat" value="#{sessionScope.categorieList}">
-		<p:column headerText="ID">
-			<h:outputText value="#{cat.idCategorie}" />
-		</p:column>
 
-
-		<p:column headerText="Nom">
-			<h:outputText value="#{cat.nomCategorie}" />
-		</p:column>
-
-		<p:column headerText="Description">
-			<h:outputText value="#{cat.description}" />
-		</p:column>
-
-
-		<p:column headerText="Image">
-			<h:graphicImage value="#{cat.image}"/>
-		</p:column>
-	</p:dataTable>
 </h:form>
 </h:body>
 </html>
