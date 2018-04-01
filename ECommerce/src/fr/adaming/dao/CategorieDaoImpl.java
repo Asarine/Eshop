@@ -42,5 +42,26 @@ public class CategorieDaoImpl implements ICategorieDao{
 		return query1.executeUpdate();
 		}
 
+	@Override
+	public int updateCategorie(Categorie cat) {
+		String req2="UPDATE Categorie AS cat SET cat.nomCategorie=:pNomCat, cat.photo=:pPhoto, cat.description=:pDesc WHERE cat.idCategorie=:pId";
+		Query query2=em.createQuery(req2);
+		query2.setParameter("pNomCat", cat.getNomCategorie());
+		query2.setParameter("pPhoto", cat.getPhoto());
+		query2.setParameter("pDesc", cat.getDescription());
+		query2.setParameter("pId", cat.getIdCategorie());
+		return query2.executeUpdate();
+	}
+
+	@Override
+	public Categorie getCategorieById(Categorie cat) {
+		String req3="SELECT cat FROM Categorie AS cat WHERE cat.idCategorie=:pId";
+		Query query3=em.createQuery(req3);
+		query3.setParameter("pId", cat.getIdCategorie());
+		Categorie catOut=(Categorie) query3.getSingleResult();
+		catOut.setImage("data:image/png;base64,"+Base64.encodeBase64String(catOut.getPhoto()));
+		return catOut;
+	}
+
 
 }

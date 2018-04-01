@@ -1,6 +1,5 @@
 package fr.adaming.dao;
 
-import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -51,6 +50,15 @@ public class ClientDaoImpl implements IClientDao{
 		Query query2=em.createQuery(req2);
 		query2.setParameter("pId", cl.getIdClient());
 		return query2.executeUpdate();
+	}
+
+	@Override
+	public Client getClientbyId(Client cl) {
+		String req3="SELECT cl FROM Client cl WHERE cl.idClient=:pId";
+		Query query3=em.createQuery(req3);
+		query3.setParameter("pId", cl.getIdClient());
+		Client clOut =(Client) query3.getSingleResult();
+		return clOut;
 	}
 	
 	

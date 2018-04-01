@@ -14,4 +14,8 @@ public interface ICategorieService {
 	public List<Categorie> getAllCategorie();
 	
 	public int deleteCategorie(Categorie cat);
+	
+	public int updateCategorie(Categorie cat);
+	
+	public Categorie getCategorieById(Categorie cat);
 }

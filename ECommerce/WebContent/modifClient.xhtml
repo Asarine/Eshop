@@ -10,6 +10,22 @@
 <title>Modification Client</title>
 </h:head>
 <h:body>
+<ui:composition template="/template/layout.xhtml">
+<ui:define name="header">
+<h1 style="color:yellow">Vente d'animaux</h1>
+<h:form>
+<h:outputText value="#{clMB.client.nomClient}"/>
+<br/>
+<h:commandLink value="Retour à l'accueil" action="accueilClient"/>
+<br/>
+<h:commandLink value="Modifier" action="#{clMB.modifClientavecLien}"/>
+<br/>
+<h:commandLink value="Supprimer" action="#{clMB.suppClient}"/>
+<br/>
+<h:commandLink value="Se déconnecter" action="#{clMB.decoClient}"/>
+</h:form>
+</ui:define>
+<ui:define name="corps">
 <h1 style="color: violet; text-align: center">Modifier client</h1>
 	<h:form>
 		<h:panelGrid columns="2">
@@ -26,6 +42,9 @@ Veuillez confirmer votre mot de passe : <h:inputSecret value="#{clMB.client.mdp}
 	</h:form>
 
 <h:messages style="color:crimson"/>
+
+</ui:define>
+</ui:composition>
 
 </h:body>
 </html>

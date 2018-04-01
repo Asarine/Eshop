@@ -13,16 +13,41 @@
 </h:head>
 
 <h:body>
-<h1 style="color:violet; text-align:center">Accueil</h1>
+<ui:composition template="/template/layout.xhtml">
+<ui:define name="header">
+<h1 style="color:yellow">Vente d'animaux</h1>
 <h:form>
-	<h:panelGrid columns="2">
+<h:panelGrid columns="2">
 		Mail : <h:inputText value="#{clMB.client.email}" />
 		Mot de passe <h:inputSecret value="#{clMB.client.mdp}" />
 		<h:commandButton value="Connexion" action="#{clMB.seConnecter}" />
+		<h:commandLink value="Pas encore inscrit ?" action="ajoutClient"/>
 	</h:panelGrid>
-	<h:messages style="color:crimson"/>
-	<h:commandLink value="Pas encore inscrit ?" action="ajoutClient"/>
-</h:form>
+	</h:form>
+</ui:define>
+<ui:define name="corps">
+<h1 style="color:violet; text-align:center">Accueil</h1>
+<h:form>
+<p:carousel value="#{catMB.listecat}" headerText="Categories" var="cat" itemStyle="text-align:center" responsive="true">
+        <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+            <f:facet name="header">
+                <h:graphicImage value="#{cat.image}" style="height:100px;width:100px"/>
+            </f:facet>
+ 
+            <h:outputText value="Nom" />
+            <h:outputText value="#{cat.nomCategorie}" />
+ 
+            <h:outputText value="Description" />
+            <h:outputText value="#{cat.description}" />
+             <p:commandLink value="Afficher produits" action="#{prMB.rechercherProduitCat}" update="@all">
+					<f:setPropertyActionListener value="#{cat.idCategorie}" target="#{prMB.categorie.idCategorie}"/>
+			</p:commandLink>
+        </p:panelGrid>
+    </p:carousel>
+    </h:form>
+<h:messages style="color:crimson"/>
+</ui:define>
+</ui:composition>
 </h:body>
 
 </html>

@@ -29,7 +29,7 @@ public class LigneCommande {
 	@ManyToOne
 	@JoinColumn(name="pr_id", referencedColumnName="id_pr")
 	private Produit prod;
-	
+
 	//Déclaration des constructeurs
 	public LigneCommande() {
 		super();
@@ -88,6 +88,7 @@ public class LigneCommande {
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
+
 
 	//Redéfintion de la méthode toString
 	@Override

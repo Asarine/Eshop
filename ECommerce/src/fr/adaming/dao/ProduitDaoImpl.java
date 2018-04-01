@@ -4,28 +4,26 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 
 @Stateless
 public class ProduitDaoImpl implements IProduitDao {
 
-	@PersistenceUnit(unitName="PU")
+	@PersistenceContext(unitName="PU")
 	private EntityManager em;
 	
 	@Override
 	public List<Produit> getAllProduits(Produit pr) {
 		
 		// requete jpql
-		String req="SELECT pr FROM Produit pr WHERE pr.id=:pId";
+		String req="SELECT pr FROM Produit pr";
 								
 		//Créer un objet query pour envoyer la requête jpql
 		Query query=em.createQuery(req);
-						
-		// Passage des params
-		query.setParameter("pId", pr.getIdProduit());
 						
 		//envoi de la requete et recup du résultat
 				
@@ -60,20 +58,21 @@ public class ProduitDaoImpl implements IProduitDao {
 	}
 	
 	@Override
-	public Produit GetProduitByCat(Produit pr) {
+	public List<Produit> GetProduitByCat(Categorie cat) {
 		
 		// Création du query
 		
-		String req="SELECT pr FROM Produit pr WHERE pr.cat_id=:pCat_id";
+		String req3="SELECT pr FROM Produit pr WHERE pr.cat.idCategorie=:pCatid";
 				
-		Query query=em.createQuery(req);
+		Query query3=em.createQuery(req3);
 		
 		// Passage des params		
-		query.setParameter("pCat_id", pr.getIdProduit());
+		query3.setParameter("pCatid", cat.getIdCategorie());
 				
 		// Envoi et recup du résultat
 						
-		return (Produit) query.getSingleResult();
+		 List<Produit> listeProdCat=query3.getResultList();
+		 return listeProdCat;
 	
 	}
 	

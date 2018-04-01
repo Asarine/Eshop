@@ -10,10 +10,22 @@
 <title>Accueil</title>
 </h:head>
 <h:body>
-Accueil client
+<ui:composition template="/template/layout.xhtml">
+<ui:define name="header">
+<h1 style="color:yellow">Vente d'animaux</h1>
 <h:form>
-<h:commandLink value="Modifier" action="modifClient"/>
+<h:outputText value="#{clMB.client.nomClient}"/>
+<br/>
+<h:commandLink value="Modifier" action="#{clMB.modifClientavecLien}"/>
+<br/>
 <h:commandLink value="Supprimer" action="#{clMB.suppClient}"/>
+<br/>
+<h:commandLink value="Se déconnecter" action="#{clMB.decoClient}"/>
+</h:form>
+</ui:define>
+<ui:define name="corps">
+<h1 style="color:violet; text-align:center">Accueil</h1>
+<h:form>
 <p:carousel value="#{catMB.listecat}" headerText="Categories" var="cat" itemStyle="text-align:center" responsive="true">
         <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
             <f:facet name="header">
@@ -25,11 +37,17 @@ Accueil client
  
             <h:outputText value="Description" />
             <h:outputText value="#{cat.description}" />
+            
+            <p:commandLink value="Afficher produits" action="#{prMB.rechercherProduitCat}" update="@all">
+					<f:setPropertyActionListener value="#{cat.idCategorie}" target="#{prMB.categorie.idCategorie}"/>
+			</p:commandLink>
         </p:panelGrid>
 
     </p:carousel>
+    </h:form>
+    
 <h:messages style="color:crimson"/>
-
-</h:form>
+</ui:define>
+</ui:composition>
 </h:body>
 </html>

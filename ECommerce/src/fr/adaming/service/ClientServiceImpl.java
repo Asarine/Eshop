@@ -34,6 +34,11 @@ public class ClientServiceImpl implements IClientService {
 	public int deleteClient(Client cl) {
 		return clientDao.deleteClient(cl);
 	}
+
+	@Override
+	public Client getClientbyId(Client cl) {
+		return clientDao.getClientbyId(cl);
+	}
 	
 	
 

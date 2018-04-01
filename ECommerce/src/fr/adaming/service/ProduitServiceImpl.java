@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
 import fr.adaming.dao.IProduitDao;
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 
 @Stateful
@@ -33,9 +34,9 @@ public class ProduitServiceImpl implements IProduitService {
 	}
 	
 	@Override
-	public Produit GetProduitByCat(Produit pr) {
+	public List<Produit> GetProduitByCat(Categorie cat) {
 		
-		return produitDao.GetProduitByCat(pr);
+		return produitDao.GetProduitByCat(cat);
 	}
 	
 	@Override

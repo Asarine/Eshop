@@ -10,16 +10,34 @@
 <title>Se connecter</title>
 </h:head>
 <h:body>
+<ui:composition template="/template/layout.xhtml">
+<ui:define name="header">
+<h1 style="color:yellow">Vente d'animaux</h1>
+<h:form>
+<h:panelGrid columns="2">
+		Mail : <h:inputText value="#{clMB.client.email}" />
+		Mot de passe <h:inputSecret value="#{clMB.client.mdp}" />
+		<h:commandButton value="Connexion" action="#{clMB.seConnecter}" />
+		<h:commandLink value="Pas encore inscrit ?" action="ajoutClient"/>
+		<br/>
+		<h:commandLink value="Retour à l'accueil" action="accueil"/>
+	</h:panelGrid>
+	</h:form>
+</ui:define>
+<ui:define name="corps">
 <h1 style="color:violet; text-align:center">Connexion</h1>
 <h:form>
 	<h:panelGrid columns="2">
 		Mail : <h:inputText value="#{clMB.client.email}" />
-		Mot de passe <h:inputText value="#{clMB.client.mdp}" />
+		Mot de passe <h:inputSecret value="#{clMB.client.mdp}" />
 		<h:commandButton value="Connexion" action="#{clMB.seConnecter}" />
 	</h:panelGrid>
 	<h:commandLink value="Pas encore inscrit ?" action="ajoutClient"/>
 </h:form>
 <h:messages style="color:crimson"/>
+</ui:define>
+</ui:composition>
+
 
 </h:body>
 </html>

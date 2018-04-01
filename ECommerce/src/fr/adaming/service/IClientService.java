@@ -15,7 +15,8 @@ public interface IClientService {
 	
 	public int modifClient(Client cl);
 	
-	
+	public Client getClientbyId(Client cl);
+
 
 	public int deleteClient(Client cl);
 }

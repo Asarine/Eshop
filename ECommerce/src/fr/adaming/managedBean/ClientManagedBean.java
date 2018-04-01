@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Client;
 import fr.adaming.service.IClientService;
 
@@ -87,5 +88,23 @@ public class ClientManagedBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le client n'a pas été supprimé."));
 			return "accueilClient";
 		}
+	}
+	
+	public String modifClientavecLien(){
+		HttpSession maSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		Client clSess=(Client) maSession.getAttribute("clientSession");
+		Client clOut=clientService.getClientbyId(clSess);
+		if (clOut!=null){
+			this.client=clOut;
+			return "modifClient";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur"));
+			return "accueilClient";
+		}
+	}
+	
+	public String decoClient(){
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "accueil";
 	}
 }

@@ -27,6 +27,7 @@ public class CategorieManagedBean implements Serializable{
 	private UploadedFile uf;
 	private List<Categorie> listecat;
 	private HttpSession maSession;
+	private boolean indice=false;
 	
 	@EJB
 	private ICategorieService categorieService;
@@ -40,9 +41,10 @@ public class CategorieManagedBean implements Serializable{
 	
 	@PostConstruct
 	public void inti(){
-		this.listecat=categorieService.getAllCategorie();
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categorieList", listecat);
+		
 		this.maSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		this.listecat=categorieService.getAllCategorie();
+		
 	}
 
 	//Getter et setter
@@ -69,14 +71,23 @@ public class CategorieManagedBean implements Serializable{
 	public void setUf(UploadedFile uf) {
 		this.uf = uf;
 	}
+	
+
+	public boolean isIndice() {
+		return indice;
+	}
+
+	public void setIndice(boolean indice) {
+		this.indice = indice;
+	}
 
 	//Méthode métier
 	public void ajoutCategorie(){
-		this.cat.setNomCategorie("Suricate");
-		this.cat.setDescription("Un petit animal tout mignon mignon");
 		this.cat.setPhoto(this.uf.getContents());
 		Categorie catAjout=categorieService.addCategorie(cat);
 		if (catAjout.getIdCategorie()!=0){
+			List<Categorie> listeCategorie=categorieService.getAllCategorie();
+			maSession.setAttribute("categorieList", listeCategorie);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'ajout a été effectué."));
 		}else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'ajout n'a pas été effectué."));
@@ -84,6 +95,7 @@ public class CategorieManagedBean implements Serializable{
 	}
 	
 	public void suppCategorie(){
+		System.out.println(this.cat.getIdCategorie());
 		int verif=categorieService.deleteCategorie(this.cat);
 		if (verif!=0){
 			List<Categorie> listeCategories=categorieService.getAllCategorie();
@@ -94,4 +106,40 @@ public class CategorieManagedBean implements Serializable{
 		}
 	}
 
+	public void modifCategorie(){
+		this.cat.setPhoto(this.uf.getContents());
+		System.out.println("========================================================================="+cat.getNomCategorie());
+		int verif=categorieService.updateCategorie(cat);
+		if (verif!=0){
+			List<Categorie> listeCategorie=categorieService.getAllCategorie();
+			maSession.setAttribute("categorieList", listeCategorie);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La modification a été effectuée."));
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La modification n'a pas été effectuée."));
+		}
+	}
+	
+	public void chercherCategorie(){
+		Categorie catOut=categorieService.getCategorieById(this.cat);
+		if (catOut!=null){
+			this.cat=catOut;
+			this.indice=true;
+		}else{
+			this.indice=false;
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucune catégorie trouvée"));
+		}
+	}
+	
+	public String modifierCatAvecLien(){
+		Categorie catOut=categorieService.getCategorieById(this.cat);
+		if (catOut!=null){
+			this.cat=catOut;
+			return "modifCatAdmin";
+		}else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur"));
+			return "AfficherCategoriesAdmin";
+		}
+	}
+		
+	
 }

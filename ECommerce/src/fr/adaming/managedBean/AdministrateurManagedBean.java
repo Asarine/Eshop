@@ -10,8 +10,10 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import fr.adaming.model.Administrateur;
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 import fr.adaming.service.IAdministrateurService;
+import fr.adaming.service.ICategorieService;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name="adMB")
@@ -22,9 +24,13 @@ public class AdministrateurManagedBean implements Serializable {
 	@EJB
 	private IAdministrateurService adminService;
 	
+	@EJB
+	private ICategorieService categService;
+	
 	// Déclaration des attributs envoyés à la page
 	private Administrateur administrateur;
 	
+	private List<Categorie> listecateg;
 	private List<Produit> listeProduits;
 	
 	private IProduitService prService;
@@ -86,11 +92,13 @@ public class AdministrateurManagedBean implements Serializable {
 		try{
 			
 			Administrateur adOut = adminService.isExist(this.administrateur);
-			this.listeProduits = prService.getAllProduits(pr);
+			//this.listeProduits = prService.getAllProduits(pr);
+			this.listecateg=categService.getAllCategorie();
 	
 			
 			// Ajouter l'administrateur comme attribut de la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", adOut);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categorieList", listecateg);
 			
 			return "accueilAdmin";
 			

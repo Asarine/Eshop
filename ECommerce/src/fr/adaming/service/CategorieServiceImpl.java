@@ -29,6 +29,16 @@ public class CategorieServiceImpl implements ICategorieService{
 	public int deleteCategorie(Categorie cat) {
 		return categorieDao.deleteCategorie(cat);
 	}
+
+	@Override
+	public int updateCategorie(Categorie cat) {
+		return categorieDao.updateCategorie(cat);
+	}
+
+	@Override
+	public Categorie getCategorieById(Categorie cat) {
+		return categorieDao.getCategorieById(cat);
+	}
 	
 	
 

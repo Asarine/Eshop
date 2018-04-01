@@ -3,12 +3,16 @@ package fr.adaming.managedBean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
+import fr.adaming.model.Categorie;
+import fr.adaming.model.Client;
 import fr.adaming.model.Produit;
 import fr.adaming.service.IProduitService;
 
@@ -22,15 +26,27 @@ public class ProduitManagedBean implements Serializable {
 	
 	// Déclaration des attributs envoyés à la page
 	private Produit produit;
-	
+	private Categorie categorie;
+	private List<Produit> listeProduitCat;
 	private boolean indice;
+	private boolean indiceCat;
+	private HttpSession maSession;
 
 	// Constructeurs
 	public ProduitManagedBean() {
 		this.produit=new Produit();
 		this.indice=false;
+		this.categorie=new Categorie();
+		this.indiceCat=false;
 	}
 
+	@PostConstruct
+	public void inti(){
+		
+		this.maSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+
+		
+	}
 	// Getters et setters
 	public IProduitService getProduitService() {
 		return produitService;
@@ -56,8 +72,35 @@ public class ProduitManagedBean implements Serializable {
 		this.indice = indice;
 	}
 	
+	public List<Produit> getListeProduitCat() {
+		return listeProduitCat;
+	}
+
+	public void setListeProduitCat(List<Produit> listeProduitCat) {
+		this.listeProduitCat = listeProduitCat;
+	}
+	
+		public boolean isIndiceCat() {
+		return indiceCat;
+	}
+
+	public void setIndiceCat(boolean indiceCat) {
+		this.indiceCat = indiceCat;
+	}
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+	
+	
 	// Methodes métiers
 	
+
+
 	public String ajouterProduit(){
 		
 		Produit prAjout = produitService.addProduit(produit);
@@ -94,20 +137,28 @@ public class ProduitManagedBean implements Serializable {
 		return "rechpr";
 	}
 	
-public String rechercherProduitCat(){
+	public String rechercherProduitCat(){
 		
 		try{
-			
-		this.produit=produitService.GetProduitByCat(produit);
-		this.indice=true;
+		
+		listeProduitCat=produitService.GetProduitByCat(categorie);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeCategorie", listeProduitCat);
+		this.indiceCat=true;
+		Client cl=(Client) maSession.getAttribute("clientSession");
+		if (cl!=null){
+		return "resultatsRecherchCatClient";
+		}else{
+			return "resultatsRecherchCat";
+		}
 		
 		}catch (Exception ex){
 		
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La catégorie recherchée n'existe pas"));
-			this.indice=false;
+			this.indiceCat=false;
+			return "accueilClient";
 			
 		}
-		return "rechprcat";
 	}
+
 
 }

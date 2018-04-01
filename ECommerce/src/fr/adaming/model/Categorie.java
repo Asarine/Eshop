@@ -40,6 +40,12 @@ public class Categorie {
 		super();
 	}
 
+	public Categorie(String nomCategorie, String description) {
+		super();
+		this.nomCategorie = nomCategorie;
+		this.description = description;
+	}
+
 	public Categorie(String nomCategorie, byte[] photo, String description) {
 		super();
 		this.nomCategorie = nomCategorie;
