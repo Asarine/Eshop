@@ -29,6 +29,17 @@
 
 <h:form>
 
+<h:panelGrid columns="2">
+IDcat: <h:inputText value="#{prMB.produit.cat}"/>
+
+<h:commandButton value="Rechercher" action="#{prMB.rechercherProduitCat}" update="@all"></h:commandButton>
+
+</h:panelGrid>
+
+</h:form>
+
+<h:form>
+
 <p:dataTable var="pr" value="#{prMB.produit}" rendered="prMB.indice">
     <p:column headerText="Id">
         <h:outputText value="#{pr.idProduit}" />
@@ -60,6 +71,7 @@
 </p:dataTable>
 
 </h:form>
+
 
 <h:message style="color : red"/>
 

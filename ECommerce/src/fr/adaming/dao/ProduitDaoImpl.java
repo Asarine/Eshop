@@ -1,5 +1,7 @@
 package fr.adaming.dao;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceUnit;
@@ -12,6 +14,24 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@PersistenceUnit(unitName="PU")
 	private EntityManager em;
+	
+	@Override
+	public List<Produit> getAllProduits(Produit pr) {
+		
+		// requete jpql
+		String req="SELECT pr FROM Produit pr WHERE pr.id=:pId";
+								
+		//Créer un objet query pour envoyer la requête jpql
+		Query query=em.createQuery(req);
+						
+		// Passage des params
+		query.setParameter("pId", pr.getIdProduit());
+						
+		//envoi de la requete et recup du résultat
+				
+		return query.getResultList();
+			
+	}
 	
 	@Override
 	public Produit addProduit(Produit pr) {
@@ -70,9 +90,6 @@ public class ProduitDaoImpl implements IProduitDao {
 		
 		return null;
 	}
-
-
-
 	
 	
 

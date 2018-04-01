@@ -1,6 +1,7 @@
 package fr.adaming.managedBean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -61,6 +62,9 @@ public class ProduitManagedBean implements Serializable {
 		
 		Produit prAjout = produitService.addProduit(produit);
 		if (prAjout.getIdProduit() != null){
+			
+		// Récupérer la nouvelle liste
+		List<Produit> liste = produitService.getAllProduits(this.produit);
 			
 		this.produit=prAjout;
 		

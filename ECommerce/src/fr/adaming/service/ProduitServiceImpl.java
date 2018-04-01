@@ -1,5 +1,7 @@
 package fr.adaming.service;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
@@ -11,6 +13,12 @@ public class ProduitServiceImpl implements IProduitService {
 
 	@EJB
 	private IProduitDao produitDao;
+	
+	@Override
+	public List<Produit> getAllProduits(Produit pr) {
+		
+		return null;
+	}
 
 	@Override
 	public Produit addProduit(Produit pr) {
@@ -35,7 +43,6 @@ public class ProduitServiceImpl implements IProduitService {
 		
 		return null;
 	}
-
 
 
 
