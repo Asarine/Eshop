@@ -25,6 +25,12 @@ public class ProduitServiceImpl implements IProduitService {
 	}
 	
 	@Override
+	public Produit GetProduitByCat(Produit pr) {
+		
+		return produitDao.GetProduitByCat(pr);
+	}
+	
+	@Override
 	public Produit getProduitByMotCle(Produit pr) {
 		
 		return null;

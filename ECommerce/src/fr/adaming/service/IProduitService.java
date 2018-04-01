@@ -11,6 +11,8 @@ public interface IProduitService {
 	
 	public Produit getProduitById(Produit pr);
 	
+	public Produit GetProduitByCat(Produit pr);
+	
 	public Produit getProduitByMotCle(Produit pr);
 
 }

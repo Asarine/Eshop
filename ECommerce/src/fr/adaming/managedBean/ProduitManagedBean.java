@@ -57,6 +57,23 @@ public class ProduitManagedBean implements Serializable {
 	
 	// Methodes métiers
 	
+	public String ajouterProduit(){
+		
+		Produit prAjout = produitService.addProduit(produit);
+		if (prAjout.getIdProduit() != null){
+			
+		this.produit=prAjout;
+		
+		return "accueilAdmin";
+			
+		}else{
+			
+			return "ajoutpr";
+			
+		}
+		
+	}
+	
 	public String rechercherProduit(){
 		
 		try{
@@ -73,21 +90,20 @@ public class ProduitManagedBean implements Serializable {
 		return "rechpr";
 	}
 	
-	public String ajouterProduit(){
+public String rechercherProduitCat(){
 		
-		Produit prAjout = produitService.addProduit(produit);
-		if (prAjout.getIdProduit() != null){
+		try{
 			
-		this.produit=prAjout;
+		this.produit=produitService.GetProduitByCat(produit);
+		this.indice=true;
 		
-		return "accueilAdmin";
-			
-		}else{
-			
-			return "ajoutpr";
+		}catch (Exception ex){
+		
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La catégorie recherchée n'existe pas"));
+			this.indice=false;
 			
 		}
-		
+		return "rechprcat";
 	}
 
 }

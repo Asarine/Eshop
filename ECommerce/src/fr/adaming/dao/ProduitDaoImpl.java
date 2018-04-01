@@ -40,6 +40,25 @@ public class ProduitDaoImpl implements IProduitDao {
 	}
 	
 	@Override
+	public Produit GetProduitByCat(Produit pr) {
+		
+		// Création du query
+		
+		String req="SELECT pr FROM Produit pr WHERE pr.cat_id=:pCat_id";
+				
+		Query query=em.createQuery(req);
+		
+		// Passage des params		
+		query.setParameter("pCat_id", pr.getIdProduit());
+				
+		// Envoi et recup du résultat
+						
+		return (Produit) query.getSingleResult();
+	
+	}
+	
+
+	@Override
 	public Produit getProduitByMotCle(Produit pr) {
 		
 		// Création de la requête jpql
@@ -51,6 +70,8 @@ public class ProduitDaoImpl implements IProduitDao {
 		
 		return null;
 	}
+
+
 
 	
 	
