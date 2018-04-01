@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<title>Se connecter</title>
+</h:head>
+<h:body>
+<ui:composition template="/template/layout.xhtml">
+<ui:define name="header">
+<h1 style="color:yellow">Vente d'animaux</h1>
+<h:form>
+<h:panelGrid columns="2">
+		Mail : <h:inputText value="#{clMB.client.email}" />
+		Mot de passe <h:inputSecret value="#{clMB.client.mdp}" />
+		<h:commandButton value="Connexion" action="#{clMB.seConnecter}" />
+		<h:commandLink value="Pas encore inscrit ?" action="ajoutClient"/>
+		<br/>
+		<h:commandLink value="Retour à l'accueil" action="accueil"/>
+	</h:panelGrid>
+	</h:form>
+</ui:define>
+<ui:define name="corps">
+<h:form>
+    <p:dataTable var="prod" value="#{sessionScope.listeCategorie}" rendered="#{prMB.indiceCat}">
+    <p:column>
+        <h:outputText value="#{prod.designation}" />
+    </p:column>
+    <p:column>
+        <h:outputText value="#{prod.description}" />
+    </p:column>
+ 
+    <p:column headerText="Prix">
+        <h:outputText value="#{prod.prix}" />
+    </p:column>
+ 
+    <p:column headerText="Quantité">
+        <p:spinner value="#{prod.quantite}" />
+    </p:column>
+</p:dataTable>
+</h:form>
+</ui:define>
+</ui:composition>
+
+
+</h:body>
+</html>
