@@ -45,6 +45,18 @@ public class ProduitServiceImpl implements IProduitService {
 		return null;
 	}
 
+	@Override
+	public int deleteProduit(Produit pr) {
+		
+		return produitDao.deleteProduit(pr);
+	}
+
+	@Override
+	public int updateProduit(Produit pr) {
+		
+		return produitDao.updateProduit(pr);
+	}
+
 
 
 }
