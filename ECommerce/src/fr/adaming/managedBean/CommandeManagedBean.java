@@ -3,6 +3,7 @@ package fr.adaming.managedBean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -14,9 +15,8 @@ import fr.adaming.model.Administrateur;
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 import fr.adaming.service.ICommandeService;
-import fr.adaming.service.ProduitServiceImpl;
 
-@ManagedBean(name="@cmdMB")
+@ManagedBean(name="cmdMB")
 @RequestScoped
 public class CommandeManagedBean implements Serializable {
 	
@@ -30,6 +30,14 @@ public class CommandeManagedBean implements Serializable {
 	private List<Commande> listeCommande;
 	private boolean indice;
 	private HttpSession maSession;
+	
+	@PostConstruct
+	public void inti(){
+		
+		this.maSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		this.listeCommande=commandeService.getAllCommandesCl(commande, client);
+		
+	}
 	
 	
 	// Constructeurs
@@ -106,7 +114,7 @@ public class CommandeManagedBean implements Serializable {
 		
 		Commande cmdAjout = commandeService.addCommande(commande);
 		
-		if (cmdAjout.getIdCommande() != null){
+		if (cmdAjout.getIdCommande() != 0){
 			
 			List<Commande> liste = commandeService.getAllCommandesCl(this.commande,this.client);
 			
