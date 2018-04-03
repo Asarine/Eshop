@@ -35,7 +35,7 @@ ID: <h:inputText value="#{prMB.produit.idProduit}"/>
 </h:form>
 
 <h:form>
-<p:dataTable var="pr" value="#{prMB.produit}" rendered="prMB.indice">
+<p:dataTable var="pr" value="#{prMB.produit}" rendered="#{prMB.indice}">
     <p:column headerText="Id">
         <h:outputText value="#{pr.idProduit}" />
     </p:column>
@@ -45,7 +45,7 @@ ID: <h:inputText value="#{prMB.produit.idProduit}"/>
     </p:column>
  
     <p:column headerText="Description">
-        <h:outputText value="#{pr.designation}" />
+        <h:outputText value="#{pr.description}" />
     </p:column>
  
     <p:column headerText="Prix">
@@ -53,7 +53,7 @@ ID: <h:inputText value="#{prMB.produit.idProduit}"/>
     </p:column>
     
     <p:column headerText="Quantité">
-        <h:outputText value="#{pr.quantité}" />
+        <h:outputText value="#{pr.quantite}" />
     </p:column>
     
     <p:column headerText="Selectionne">

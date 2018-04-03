@@ -2,14 +2,13 @@ package fr.adaming.managedBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +16,7 @@ import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
 import fr.adaming.model.Produit;
 import fr.adaming.service.ILigneCommandeService;
+import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "lcMB")
 @RequestScoped
@@ -29,6 +29,8 @@ public class LigneCommandeManagedBean implements Serializable {
 
 	@EJB
 	private ILigneCommandeService ligneService;
+	@EJB
+	private IProduitService produitService;
 
 	public LigneCommandeManagedBean() {
 		super();
@@ -75,25 +77,32 @@ public class LigneCommandeManagedBean implements Serializable {
 			maSession.setAttribute("monPanier", panier);
 			
 		}else{
-//			for (LigneCommande lg:panier.getListeLignes()){
-//				if (lg.getProd().getIdProduit()==this.produit.getIdProduit()){
-//					verif=false;
-//				}
-//			}
-//			if (verif){
+			for (LigneCommande lg:panier.getListeLignes()){
+				if (lg.getProd().getIdProduit()==this.produit.getIdProduit()){
+					verif=false;
+				}
+			}
+			if (verif){
 				this.ligne.setQuantite(this.produit.getQuantite());
 				this.ligne.setPrix(this.produit.getPrix() * this.ligne.getQuantite());
 				this.ligne.setProd(this.produit);
 				LigneCommande ligneOut = ligneService.addLigneCommande(ligne);
 				panier.getListeLignes().add(ligneOut);
 				maSession.setAttribute("monPanier", panier);
-//			}else{
-//				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit déjà ajouté"));
-//			}
+			}else{
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit déjà ajouté"));
+			}
 		}
 	}
 	public void supprimerPanier(){
 		maSession.setAttribute("monPanier", null);
 	}
 	
+	public String ajouterPanier(){
+		
+		System.out.println("llllllllllll-----------------------------------");
+		Produit prodOut = produitService.getProduitById(produit);
+		this.produit=prodOut;
+		return "ajoutPanier";
+	}
 }
