@@ -8,11 +8,12 @@
 
 <h:head>
 
-<title>Page Création commande Commandes</title>
+<title>Page Recherche Commande</title>
 
 </h:head>
 
 <h:body>
+
 <h:form>
 <p:breadCrumb>
     <p:menuitem value="Accueil Client" url="accueilClient.xhtml" />
@@ -22,16 +23,30 @@
 </p:breadCrumb>
 </h:form>
 
-
 <h:form>
 
 <h:panelGrid columns="2">
-Date: <p:calendar value="#{cmdMB.commande.date}" maxdate="7/1/20" />
-Prix: <h:inputText value="#{cmdMB.commande.prix}"/>
-
-<h:commandButton value="Effectuer" action="#{cmdMB.creerCommande}"></h:commandButton>
-
+ID: <h:inputText value="#{cmdMB.commande.id}"/>
+<h:commandButton value="Rechercher" action="#{cmdMB.rechercherCommande}"></h:commandButton>
 </h:panelGrid>
+
+</h:form>
+
+<h:form>
+
+<p:dataTable var="cmd" value="#{cmdMB.commande}" rendered="cmdMB.indice">
+    <p:column headerText="Id">
+        <h:outputText value="#{cmd.idCommande}" />
+    </p:column>
+ 
+    <p:column headerText="Date">
+        <h:outputText value="#{cmd.date}" />
+    </p:column>
+ 
+    <p:column headerText="Prix">
+        <h:outputText value="#{cmd.prix}" />
+    </p:column>
+</p:dataTable>
 
 </h:form>
 

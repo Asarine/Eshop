@@ -27,6 +27,7 @@ public class ProduitManagedBean implements Serializable {
 	// Déclaration des attributs envoyés à la page
 	private Produit produit;
 	private Categorie categorie;
+	private List<Produit> listeProduit;
 	private List<Produit> listeProduitCat;
 	private boolean indice;
 	private boolean indiceCat;
@@ -44,7 +45,7 @@ public class ProduitManagedBean implements Serializable {
 	public void inti(){
 		
 		this.maSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-
+		this.listeProduit=produitService.getAllProduits(produit);
 		
 	}
 	// Getters et setters
@@ -97,7 +98,24 @@ public class ProduitManagedBean implements Serializable {
 	}
 	
 	
+	public List<Produit> getListeProduit() {
+		return listeProduit;
+	}
+
+	public void setListeProduit(List<Produit> listeProduit) {
+		this.listeProduit = listeProduit;
+	}
+
+	public HttpSession getMaSession() {
+		return maSession;
+	}
+
+	public void setMaSession(HttpSession maSession) {
+		this.maSession = maSession;
+	}
+	
 	// Methodes métiers
+	
 	
 	public String ajouterProduit(){
 		

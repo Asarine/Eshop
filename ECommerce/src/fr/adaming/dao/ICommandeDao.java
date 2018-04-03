@@ -10,7 +10,7 @@ import fr.adaming.model.Commande;
 @Local
 public interface ICommandeDao {
 	
-	public List<Commande> getAllCommandesCl(Commande cmd);
+	public List<Commande> getAllCommandesCl(Commande cmd,Client Cl);
 	
 	public List<Commande> getAllCommandesAdm(Commande cmd);
 	

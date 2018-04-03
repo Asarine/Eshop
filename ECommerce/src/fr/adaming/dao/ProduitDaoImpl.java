@@ -101,7 +101,7 @@ public class ProduitDaoImpl implements IProduitDao {
 	@Override
 	public int updateProduit(Produit pr) {
 		
-		String req="UPDATE Produit pr SET pr.designation=:pDesignation, pr.description=:pDescription, pr.prix=:pPrix, pr.quantite=:pQuantite, pr.photo=:pPhoto WHERE pr.idproduit=:pIdproduit";
+		String req="UPDATE Produit pr SET pr.designation=:pDesignation, pr.description=:pDescription, pr.prix=:pPrix, pr.quantite=:pQuantite, pr.selectionne=:pSelectionne, pr.photo=:pPhoto WHERE pr.idproduit=:pIdproduit";
 		
 		Query query=em.createQuery(req);
 		
@@ -109,6 +109,7 @@ public class ProduitDaoImpl implements IProduitDao {
 		query.setParameter("pDescription", pr.getDescription());
 		query.setParameter("pPrix", pr.getPrix());
 		query.setParameter("pQuantite", pr.getQuantite());
+		query.setParameter("pSelectionne", pr.isSelectionne());
 		query.setParameter("pPhoto", pr.getPhoto());
 		
 		int verif=query.executeUpdate();

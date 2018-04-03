@@ -16,7 +16,7 @@ public class CommandeServiceImpl implements ICommandeService {
 	private ICommandeDao commandeDao;
 
 	@Override
-	public List<Commande> getAllCommandesCl(Commande cmd) {
+	public List<Commande> getAllCommandesCl(Commande cmd,Client cl) {
 		
 		return null;
 	}

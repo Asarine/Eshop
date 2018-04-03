@@ -15,6 +15,14 @@
 <h:body>
 
 <h:form>
+<!-- Inclure mon template dns la page loginAdmin sans modif -->
+<ui:insert>
+<ui:include src="/template/layout.xhtml"></ui:include>
+</ui:insert>
+</h:form>
+
+
+<h:form>
 
 <h:panelGrid columns="2">
 Mail: <h:inputText value="#{adMB.administrateur.mail}"/>

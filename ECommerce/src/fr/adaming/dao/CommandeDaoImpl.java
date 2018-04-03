@@ -17,10 +17,10 @@ public class CommandeDaoImpl implements ICommandeDao {
 	private EntityManager em;
 
 	@Override
-	public List<Commande> getAllCommandesCl(Commande cmd) {
+	public List<Commande> getAllCommandesCl(Commande cmd,Client cl) {
 		
 		// requete jpql
-		String req="SELECT cmd FROM Commande cmd";
+		String req="SELECT cmd FROM Commande cmd WHERE cmd.cl_id=:pClid";
 										
 		//Créer un objet query pour envoyer la requête jpql
 		Query query=em.createQuery(req);
@@ -57,7 +57,7 @@ public class CommandeDaoImpl implements ICommandeDao {
 		
 		// Création du query
 		
-		String req="SELECT cmd FROM Commande cmd WHERE cmd.idCommande=:pIdCommande";
+		String req="SELECT cmd FROM Commande cmd WHERE cmd.id_com=:pIdCommande";
 				
 		Query query=em.createQuery(req);
 				

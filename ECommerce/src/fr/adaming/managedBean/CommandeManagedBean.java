@@ -4,13 +4,17 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import fr.adaming.model.Administrateur;
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 import fr.adaming.service.ICommandeService;
+import fr.adaming.service.ProduitServiceImpl;
 
 @ManagedBean(name="@cmdMB")
 @RequestScoped
@@ -97,14 +101,14 @@ public class CommandeManagedBean implements Serializable {
 	}
 	
 	// Méthodes métiers
-	
+		
 	public String creerCommande(){
 		
 		Commande cmdAjout = commandeService.addCommande(commande);
 		
 		if (cmdAjout.getIdCommande() != null){
 			
-			List<Commande> liste = commandeService.getAllCommandesCl(this.commande);
+			List<Commande> liste = commandeService.getAllCommandesCl(this.commande,this.client);
 			
 			maSession.setAttribute("commandesListe", liste);
 			
@@ -114,6 +118,52 @@ public class CommandeManagedBean implements Serializable {
 			return "ajoutCmd";
 			
 		}
+		
+	}
+	
+	public String rechercherCommande(){
+		
+		try{
+			
+			this.commande=commandeService.getCommandeById(commande);
+			this.indice=true;
+			
+			}catch (Exception ex){
+			
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La commande recherchée n'existe pas"));
+				this.indice=false;
+				
+			}
+			return "rechCmd";
+		
+	}
+	
+	public String rechercherCommandeIdCl(){
+		
+try{
+			
+	listeCommande=commandeService.getCommandeByIdCl(commande, client);
+	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("commandesListe", listeCommande);
+	this.indice=true;
+	Administrateur adm=(Administrateur) maSession.getAttribute("adminSession");
+	
+	if (adm != null){
+		
+		return "rechCmdCl";
+		
+	}else{
+		
+		return "accueilAdmin";
+		
+	}
+			
+	}catch (Exception ex){
+			
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La commande recherchée n'existe pas"));
+		this.indice=false;
+				
+	}
+			return "accueilAdmin";
 		
 	}
 
