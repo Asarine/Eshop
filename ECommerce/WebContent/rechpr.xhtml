@@ -34,6 +34,38 @@ ID: <h:inputText value="#{prMB.produit.idProduit}"/>
 
 </h:form>
 
+<h:form>
+<p:dataTable var="pr" value="#{prMB.produit}" rendered="prMB.indice">
+    <p:column headerText="Id">
+        <h:outputText value="#{pr.idProduit}" />
+    </p:column>
+ 
+    <p:column headerText="Designation">
+        <h:outputText value="#{pr.designation}" />
+    </p:column>
+ 
+    <p:column headerText="Description">
+        <h:outputText value="#{pr.designation}" />
+    </p:column>
+ 
+    <p:column headerText="Prix">
+        <h:outputText value="#{pr.prix}" />
+    </p:column>
+    
+    <p:column headerText="Quantité">
+        <h:outputText value="#{pr.quantité}" />
+    </p:column>
+    
+    <p:column headerText="Selectionne">
+        <h:outputText value="#{pr.selectionne}" />
+    </p:column>
+    
+    <p:column headerText="Photo">
+        <h:outputText value="#{pr.photo}" />
+    </p:column>
+</p:dataTable>
+</h:form>
+
 </h:body>
 
 </html>
