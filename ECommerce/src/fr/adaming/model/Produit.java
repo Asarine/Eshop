@@ -12,6 +12,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -31,6 +32,9 @@ public class Produit {
 	private boolean selectionne;
 	@Lob
 	private byte[] photo;
+	
+	@Transient
+	private String image;
 
 	// Transformation de l'association UML en JAVA
 	@ManyToOne
@@ -67,6 +71,8 @@ public class Produit {
 		this.selectionne = selectionne;
 		this.photo = photo;
 	}
+	
+	
 
 	// Getters et setters
 	public Long getIdProduit() {
@@ -139,6 +145,15 @@ public class Produit {
 
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
+	}
+	
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	// Rédéfinition toString

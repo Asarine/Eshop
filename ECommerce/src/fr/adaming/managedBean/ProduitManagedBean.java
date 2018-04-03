@@ -11,6 +11,9 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.model.UploadedFile;
+import org.primefaces.model.UploadedFileWrapper;
+
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Client;
 import fr.adaming.model.Produit;
@@ -32,6 +35,8 @@ public class ProduitManagedBean implements Serializable {
 	private boolean indice;
 	private boolean indiceCat;
 	private HttpSession maSession;
+	
+	private UploadedFile uf;
 
 	// Constructeurs
 	public ProduitManagedBean() {
@@ -39,6 +44,7 @@ public class ProduitManagedBean implements Serializable {
 		this.indice=false;
 		this.categorie=new Categorie();
 		this.indiceCat=false;
+		this.uf=new UploadedFileWrapper();
 	}
 
 	@PostConstruct
@@ -114,11 +120,18 @@ public class ProduitManagedBean implements Serializable {
 		this.maSession = maSession;
 	}
 	
+	
+	public UploadedFile getUf() {
+		return uf;
+	}
+
+	public void setUf(UploadedFile uf) {
+		this.uf = uf;
+	}
+
 	// Methodes métiers
-	
-	
 	public String ajouterProduit(){
-		
+		this.produit.setPhoto(this.uf.getContents());
 		Produit prAjout = produitService.addProduit(produit);
 		if (prAjout.getIdProduit() != null){
 			
