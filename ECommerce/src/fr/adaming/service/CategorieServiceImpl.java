@@ -6,7 +6,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
 import fr.adaming.dao.ICategorieDao;
-import fr.adaming.dao.IClientDao;
 import fr.adaming.model.Categorie;
 
 @Stateful

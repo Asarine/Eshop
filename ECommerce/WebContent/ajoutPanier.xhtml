@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -7,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<title>Ajouter</title>
+<title>Panier</title>
 </h:head>
 <h:body>
 <ui:composition template="/template/layout.xhtml">
@@ -25,31 +26,37 @@
 	</h:form>
 </ui:define>
 <ui:define name="corps">
-<h1 style="color: violet; text-align: center">Ajouter client</h1>
-	<h:form>
+<h:form>
 		<h:panelGrid columns="2">
-Nom : <h:inputText value="#{clMB.client.nomClient}" />
-Adresse : <h:inputText value="#{clMB.client.adresse}" />
-Code postal : <h:inputText value="#{clMB.client.codePostal}" />
-Ville : <h:inputText value="#{clMB.client.ville}" />
-Mail : <h:inputText value="#{clMB.client.email}" />
-Téléphone : <h:inputText value="#{clMB.client.tel}" />
-Mot de passe : <h:inputSecret >
-<f:validateLength minimum="8"/>
-	<f:validateRequired/>
-	</h:inputSecret>
-Veuillez confirmer votre mot de passe : <h:inputSecret value="#{clMB.client.mdp}">
-<f:validateLength minimum="8"/>
-	<f:validateRequired/>
-	</h:inputSecret>
-			<h:commandButton value="Ajouter" action="#{clMB.ajoutClient}"></h:commandButton>
+ID : <h:inputText value="#{lcMB.produit.idProduit}" />
+Prix (à l'unité) : <h:inputText value="#{lcMB.produit.prix}" />
+Quantité : <h:inputText value="#{lcMB.produit.quantite}" />
+			<h:commandButton value="Ajouter" actionListener="#{lcMB.ajouterLigneCommande}"></h:commandButton>
 		</h:panelGrid>
 	</h:form>
 
-<h:messages style="color:crimson"/>
+	<p:dataTable var="lg" value="#{lcMB.panier.listeLignes}">
+	<p:column>
+	<h:outputText value="#{lg.prod.idProduit}" />
+	</p:column>
+    <p:column>
+        <h:outputText value="#{lg.quantite}" />
+    </p:column>
+ 
+    <p:column>
+        <h:outputText value="#{lg.prix}" />
+    </p:column>
 
+</p:dataTable>
+		<h:form>
+		<h:commandButton value="Commander" actionListener="#{lcMB.supprimerPanier}"/>
+		</h:form>
+
+<h:messages/>
 </ui:define>
 </ui:composition>
+
+
 
 </h:body>
 </html>

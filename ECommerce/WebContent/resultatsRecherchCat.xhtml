@@ -22,12 +22,16 @@
 		<h:commandLink value="Pas encore inscrit ?" action="ajoutClient"/>
 		<br/>
 		<h:commandLink value="Retour à l'accueil" action="accueil"/>
+		<h:commandLink value="         Panier" action="ajoutPanier"/>
 	</h:panelGrid>
 	</h:form>
 </ui:define>
 <ui:define name="corps">
 <h:form>
     <p:dataTable var="prod" value="#{sessionScope.listeCategorie}" rendered="#{prMB.indiceCat}">
+    <p:column>
+        <h:outputText value="#{prod.idProduit}" />
+    </p:column>
     <p:column>
         <h:outputText value="#{prod.designation}" />
     </p:column>
@@ -42,8 +46,16 @@
     <p:column headerText="Quantité">
         <p:spinner value="#{prod.quantite}" />
     </p:column>
+     <p:column >
+       <p:commandLink value="Ajouter" action="#{lcMB.ajouterLigneCommande}" update="@all">
+      <f:setPropertyActionListener value="#{prod.quantite}" target="#{lcMB.produit.quantite}"/>
+      <f:setPropertyActionListener value="#{prod.idProduit}" target="#{lcMB.produit.idProduit}"/>
+      <f:setPropertyActionListener value="#{prod.prix}" target="#{lcMB.produit.prix}"/>
+				</p:commandLink>
+    </p:column>
 </p:dataTable>
 </h:form>
+<h:messages/>
 </ui:define>
 </ui:composition>
 

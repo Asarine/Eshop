@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="lignesCommande")
@@ -22,6 +23,7 @@ public class LigneCommande {
 	private double prix;
 	
 	//Transformation de l'association UML en Java
+	
 	@ManyToOne
 	@JoinColumn(name="com_id",referencedColumnName="id_com")
 	private Commande commande;
@@ -30,6 +32,9 @@ public class LigneCommande {
 	@JoinColumn(name="pr_id", referencedColumnName="id_pr")
 	private Produit prod;
 
+	@Transient
+	private Panier panier;
+	
 	//Déclaration des constructeurs
 	public LigneCommande() {
 		super();
@@ -89,6 +94,13 @@ public class LigneCommande {
 		this.prix = prix;
 	}
 
+	public Panier getPanier() {
+		return panier;
+	}
+
+	public void setPanier(Panier panier) {
+		this.panier = panier;
+	}
 
 	//Redéfintion de la méthode toString
 	@Override

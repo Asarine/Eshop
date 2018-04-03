@@ -17,6 +17,7 @@
 <h:outputText value="#{clMB.client.nomClient}"/>
 <br/>
 <h:commandLink value="Retour à l'accueil" action="accueilClient"/>
+<h:commandLink value="         Panier" action="ajoutPanier"/>
 <br/>
 <h:commandLink value="Modifier" action="#{clMB.modifClientavecLien}"/>
 <br/>
@@ -28,6 +29,9 @@
 <ui:define name="corps">
 <h:form>
     <p:dataTable var="prod" value="#{sessionScope.listeCategorie}" rendered="#{prMB.indiceCat}">
+     <p:column>
+        <h:outputText value="#{prod.idProduit}" />
+    </p:column>
     <p:column>
         <h:outputText value="#{prod.designation}" />
     </p:column>
@@ -41,6 +45,12 @@
  
     <p:column headerText="Quantité">
         <p:spinner value="#{prod.quantite}" />
+    </p:column>
+    <p:column>
+    <p:commandLink value="Ajouter au panier" action="ajoutPanier" update="@all">
+					<f:setPropertyActionListener value="#{prod.idProduit}" target="#{lcMB.produit.idProduit}"/>
+					<f:setPropertyActionListener value="#{prod.prix}" target="#{lcMB.produit.prix}"/>
+				</p:commandLink>
     </p:column>
 </p:dataTable>
 </h:form>

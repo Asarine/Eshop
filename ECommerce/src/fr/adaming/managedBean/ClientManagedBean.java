@@ -2,6 +2,7 @@ package fr.adaming.managedBean;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Client;
+import fr.adaming.service.EnvoyerMail;
 import fr.adaming.service.IClientService;
 
 @ManagedBean(name="clMB")
@@ -19,6 +21,7 @@ public class ClientManagedBean implements Serializable {
 	
 	//Attributs
 	private Client client;
+	HttpSession maSession;
 	
 	@EJB
 	private IClientService clientService;
@@ -27,6 +30,12 @@ public class ClientManagedBean implements Serializable {
 	public ClientManagedBean() {
 		super();
 		this.client = new Client();
+	}
+	@PostConstruct
+	public void inti(){
+		
+		this.maSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+
 	}
 
 	//Getter & Setter
@@ -42,6 +51,7 @@ public class ClientManagedBean implements Serializable {
 	public String seConnecter(){
 		try{
 			this.client=clientService.isExist(client);
+			EnvoyerMail.envoyerMessageAjout(client.getEmail());
 			//Ajouter le client à la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clientSession", client);
 			return "accueilClient";
