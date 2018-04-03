@@ -18,6 +18,10 @@ public interface IProduitService {
 	
 	public List<Produit> GetProduitByCat(Categorie cat);
 	
+	public int deleteProduit (Produit pr);
+	
+	public int updateProduit (Produit pr);
+	
 	public Produit getProduitByMotCle(Produit pr);
 
 }

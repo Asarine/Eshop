@@ -89,6 +89,32 @@ public class ProduitDaoImpl implements IProduitDao {
 		
 		return null;
 	}
+
+	@Override
+	public int deleteProduit(Produit pr) {
+		
+		em.remove(pr);
+		
+		return 0;
+	}
+
+	@Override
+	public int updateProduit(Produit pr) {
+		
+		String req="UPDATE Produit pr SET pr.designation=:pDesignation, pr.description=:pDescription, pr.prix=:pPrix, pr.quantite=:pQuantite, pr.photo=:pPhoto WHERE pr.idproduit=:pIdproduit";
+		
+		Query query=em.createQuery(req);
+		
+		query.setParameter("pDesignation", pr.getDesignation());
+		query.setParameter("pDescription", pr.getDescription());
+		query.setParameter("pPrix", pr.getPrix());
+		query.setParameter("pQuantite", pr.getQuantite());
+		query.setParameter("pPhoto", pr.getPhoto());
+		
+		int verif=query.executeUpdate();
+		
+		return verif;
+	}
 	
 	
 

@@ -8,11 +8,13 @@
 
 <h:head>
 
-<title>Page Login</title>
+<title>Page Modification</title>
 
 </h:head>
 
 <h:body>
+
+<h:form>
 
 <p:breadCrumb>
     <p:menuitem value="Accueil Administrateur" url="accueilAdmin.xhtml" />
@@ -23,17 +25,19 @@
     <p:menuitem value="Supprimer produit" url="suppPr.xhtml" />
 </p:breadCrumb>
 
+</h:form>
+
 <h:form>
 
 <h:panelGrid columns="2">
+ID: <h:inputText value="#{prMB.produit.idProduit}"/>
 Designation: <h:inputText value="#{prMB.produit.designation}"/>
 Description: <h:inputText value="#{prMB.produit.description}"/>
 Prix: <h:inputText value="#{prMB.produit.prix}"/>
 Quantité: <h:inputText value="#{prMB.produit.quantite}"/>
-Selectionne: <h:inputText value="#{prMB.produit.selectionne}"/>
 Photo: <h:inputText value="#{prMB.produit.photo}"/>
 
-<h:commandButton value="Ajouter" action="#{prMB.ajouterProduit}"></h:commandButton>
+<h:commandButton value="Modifier" action="#{prMB.modifierProduit}"></h:commandButton>
 
 </h:panelGrid>
 

@@ -99,8 +99,6 @@ public class ProduitManagedBean implements Serializable {
 	
 	// Methodes métiers
 	
-
-
 	public String ajouterProduit(){
 		
 		Produit prAjout = produitService.addProduit(produit);
@@ -109,7 +107,7 @@ public class ProduitManagedBean implements Serializable {
 		// Récupérer la nouvelle liste
 		List<Produit> liste = produitService.getAllProduits(this.produit);
 			
-		this.produit=prAjout;
+		maSession.setAttribute("produitsListe", liste);
 		
 		return "accueilAdmin";
 			
@@ -158,6 +156,46 @@ public class ProduitManagedBean implements Serializable {
 			return "accueilClient";
 			
 		}
+	}
+	
+	public String modifierProduit(){
+		
+		int prModif = produitService.updateProduit(this.produit);
+		
+		if (prModif != 0){
+			
+			List<Produit> liste = produitService.getAllProduits(this.produit);
+			
+			maSession.setAttribute("produitsListe", liste);
+			
+			return "accueilAdmin";
+			
+		}else{
+			
+			return "modifPr";
+			
+		}
+		
+	}
+	
+	public String supprimerProduit(){
+		
+		int prSupp = produitService.deleteProduit(this.produit);
+		
+		if (prSupp != 0){
+			
+			List<Produit> liste = produitService.getAllProduits(this.produit);
+			
+			maSession.setAttribute("produitsListe", liste);
+			
+			return "accueilAdmin";
+			
+		}else{
+			
+			return "suppPr";
+			
+		}
+		
 	}
 
 

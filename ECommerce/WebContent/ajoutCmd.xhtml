@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+<title>Page Création commande Commandes</title>
+
+</h:head>
+
+<h:body>
+
+<p:breadCrumb>
+    <p:menuitem value="Accueil Client" url="accueilClient.xhtml" />
+    <p:menuitem value="Effectuer commande" url="ajoutCmd.xhtml" />
+    <p:menuitem value="Rechercher commande" url="rechCmd.xhtml" />
+    <p:menuitem value="Rechercher commande client" url="rechCmdCl.xhtml" />
+</p:breadCrumb>
+
+<h:form>
+
+<h:panelGrid columns="2">
+Date: <p:calendar value="#{cmdMB.commande.date}" maxdate="7/1/20" />
+Prix: <h:inputText value="#{prMB.produit.prix}"/>
+
+<h:commandButton value="Effectuer" action="#{cmdMB.creerCommande}"></h:commandButton>
+
+</h:panelGrid>
+
+</h:form>
+
+</h:body>
+
+</html>
