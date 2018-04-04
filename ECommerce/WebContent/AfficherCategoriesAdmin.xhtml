@@ -55,7 +55,7 @@
 					<f:setPropertyActionListener value="#{categ.idCategorie}" target="#{catMB.cat.idCategorie}"/>
 				</p:commandLink>
 				<br/>
-				<p:commandLink value="Modifier" action="#{catMB.modifierCatAvecLien}" update="@all">
+				<p:commandLink value="Modifier" action="#{catMB.modifierCatAvecLien}" update="@all" target="modifCatAdmin">
 					<f:setPropertyActionListener value="#{categ.idCategorie}" target="#{catMB.cat.idCategorie}"/>
 				</p:commandLink>
 			</p:column>

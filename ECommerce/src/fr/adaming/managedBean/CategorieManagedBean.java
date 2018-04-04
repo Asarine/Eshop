@@ -107,7 +107,6 @@ public class CategorieManagedBean implements Serializable{
 
 	public void modifCategorie(){
 		this.cat.setPhoto(this.uf.getContents());
-		System.out.println("========================================================================="+cat.getNomCategorie());
 		int verif=categorieService.updateCategorie(cat);
 		if (verif!=0){
 			List<Categorie> listeCategorie=categorieService.getAllCategorie();

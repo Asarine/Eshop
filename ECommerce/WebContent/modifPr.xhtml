@@ -27,7 +27,7 @@
 
 </h:form>
 
-<h:form>
+<h:form enctype="multipart/form-data">
 
 <h:panelGrid columns="2">
 ID: <h:inputText value="#{prMB.produit.idProduit}"/>
@@ -35,9 +35,9 @@ Designation: <h:inputText value="#{prMB.produit.designation}"/>
 Description: <h:inputText value="#{prMB.produit.description}"/>
 Prix: <h:inputText value="#{prMB.produit.prix}"/>
 Quantité: <h:inputText value="#{prMB.produit.quantite}"/>
-Photo: <h:inputText value="#{prMB.produit.photo}"/>
+Photo: <p:fileUpload value="#{prMB.uf}" mode="simple" />
 
-<h:commandButton value="Modifier" action="#{prMB.modifierProduit}"></h:commandButton>
+<p:commandButton value="Modifier" ajax="false" action="#{prMB.modifierProduit}" />
 
 </h:panelGrid>
 

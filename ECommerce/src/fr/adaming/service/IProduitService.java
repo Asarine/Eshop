@@ -10,7 +10,7 @@ import fr.adaming.model.Produit;
 @Local
 public interface IProduitService {
 	
-	public List<Produit> getAllProduits(Produit pr);
+	public List<Produit> getAllProduits();
 	
 	public Produit addProduit(Produit pr);
 	

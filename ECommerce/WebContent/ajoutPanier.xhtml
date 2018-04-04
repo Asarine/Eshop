@@ -7,11 +7,45 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<title>Panier</title>
+	<title>Panier</title>
 </h:head>
 <h:body>
-dddddddddddddddddddddddddddddddddddddddddddddddddd
-
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="header">
+			<h1 style="color: yellow">Vente d'animaux</h1>
+			<h:form>
+				<h:panelGrid columns="2">
+		Mail : <h:inputText value="#{clMB.client.email}" />
+		Mot de passe <h:inputSecret value="#{clMB.client.mdp}" />
+					<h:commandButton value="Connexion" action="#{clMB.seConnecter}" />
+					<h:commandLink value="Pas encore inscrit ?" action="ajoutClient" />
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+		<ui:define name="corps">
+			<h1 style="color: violet; text-align: center">Mon panier</h1>
+			<h:form>
+				<p:dataTable var="ligne" value="#{lcMB.panier.listeLignes}">
+					<p:column headerText="Achat">
+						<h:outputText value="#{ligne.prod.designation}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{ligne.prod.description}" />
+					</p:column>7<p:column>
+						<h:outputText value="#{ligne.prod.prix}" />
+					</p:column>
+					<p:column headerText="Quantité">
+						<h:outputText value="#{ligne.quantite}" />
+					</p:column>
+					<p:column headerText="Prix">
+						<h:outputText value="#{ligne.prix}" />
+					</p:column>
+				</p:dataTable>
+				<h2 style="position:absolute;left:1600px">TOTAL : <h:outputText value="#{lcMB.totalPanier}"></h:outputText> </h2>
+<h2><h:messages style="color:crimson"/></h2>
+			</h:form>
+		</ui:define>
+	</ui:composition>
 
 </h:body>
 </html>

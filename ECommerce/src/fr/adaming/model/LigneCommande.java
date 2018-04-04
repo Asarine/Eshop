@@ -1,5 +1,6 @@
 package fr.adaming.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -101,13 +102,16 @@ public class LigneCommande {
 	public void setPanier(Panier panier) {
 		this.panier = panier;
 	}
-
-	//Redéfintion de la méthode toString
+	
+//Redéfintion de la méthode toString
 	@Override
 	public String toString() {
-		return "LigneCommande [idLComm=" + idLComm + ", quantite=" + quantite + ", prix=" + prix + "]";
+		return "LigneCommande [idLComm=" + idLComm + ", quantite=" + quantite + ", prix=" + prix + ", prod=" + prod
+				+ "]";
 	}
+
 	
+
 	
 
 }

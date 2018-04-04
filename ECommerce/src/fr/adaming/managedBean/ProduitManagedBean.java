@@ -31,7 +31,6 @@ public class ProduitManagedBean implements Serializable {
 	private Produit produit;
 	private Categorie categorie;
 	private List<Produit> listeProduit;
-	private List<Produit> listeProduitCat;
 	private boolean indice;
 	private boolean indiceCat;
 	private HttpSession maSession;
@@ -51,7 +50,7 @@ public class ProduitManagedBean implements Serializable {
 	public void inti(){
 		
 		this.maSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		this.listeProduit=produitService.getAllProduits(produit);
+		this.listeProduit=produitService.getAllProduits();
 		
 	}
 	// Getters et setters
@@ -77,14 +76,6 @@ public class ProduitManagedBean implements Serializable {
 
 	public void setIndice(boolean indice) {
 		this.indice = indice;
-	}
-	
-	public List<Produit> getListeProduitCat() {
-		return listeProduitCat;
-	}
-
-	public void setListeProduitCat(List<Produit> listeProduitCat) {
-		this.listeProduitCat = listeProduitCat;
 	}
 	
 		public boolean isIndiceCat() {
@@ -136,7 +127,7 @@ public class ProduitManagedBean implements Serializable {
 		if (prAjout.getIdProduit() != null){
 			
 		// Récupérer la nouvelle liste
-		List<Produit> liste = produitService.getAllProduits(this.produit);
+		List<Produit> liste = produitService.getAllProduits();
 			
 		maSession.setAttribute("produitsListe", liste);
 		
@@ -170,14 +161,13 @@ public class ProduitManagedBean implements Serializable {
 		
 		try{
 		
-		listeProduitCat=produitService.GetProduitByCat(categorie);
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeCategorie", listeProduitCat);
+		listeProduit=produitService.GetProduitByCat(categorie);
 		this.indiceCat=true;
 		Client cl=(Client) maSession.getAttribute("clientSession");
 		if (cl!=null){
-		return "resultatsRecherchCatClient";
+		return "accueilClient";
 		}else{
-			return "resultatsRecherchCat";
+			return "accueil";
 		}
 		
 		}catch (Exception ex){
@@ -191,11 +181,12 @@ public class ProduitManagedBean implements Serializable {
 	
 	public String modifierProduit(){
 		
+		this.produit.setPhoto(this.uf.getContents());
 		int prModif = produitService.updateProduit(this.produit);
 		
 		if (prModif != 0){
 			
-			List<Produit> liste = produitService.getAllProduits(this.produit);
+			List<Produit> liste = produitService.getAllProduits();
 			
 			maSession.setAttribute("produitsListe", liste);
 			
@@ -215,7 +206,7 @@ public class ProduitManagedBean implements Serializable {
 		
 		if (prSupp != 0){
 			
-			List<Produit> liste = produitService.getAllProduits(this.produit);
+			List<Produit> liste = produitService.getAllProduits();
 			
 			maSession.setAttribute("produitsListe", liste);
 			
@@ -228,6 +219,5 @@ public class ProduitManagedBean implements Serializable {
 		}
 		
 	}
-
 
 }

@@ -21,7 +21,7 @@ public class ProduitDaoImpl implements IProduitDao {
 	private Categorie cat;
 	
 	@Override
-	public List<Produit> getAllProduits(Produit pr) {
+	public List<Produit> getAllProduits() {
 		
 		// requete jpql
 		String req="SELECT pr FROM Produit pr";
@@ -106,7 +106,7 @@ public class ProduitDaoImpl implements IProduitDao {
 	@Override
 	public int updateProduit(Produit pr) {
 		
-		String req="UPDATE Produit pr SET pr.designation=:pDesignation, pr.description=:pDescription, pr.prix=:pPrix, pr.quantite=:pQuantite, pr.selectionne=:pSelectionne, pr.photo=:pPhoto WHERE pr.idproduit=:pIdproduit";
+		String req="UPDATE Produit pr SET pr.designation=:pDesignation, pr.description=:pDescription, pr.prix=:pPrix, pr.quantite=:pQuantite, pr.selectionne=:pSelectionne, pr.photo=:pPhoto WHERE pr.idProduit=:pIdproduit";
 		
 		Query query=em.createQuery(req);
 		
@@ -116,6 +116,7 @@ public class ProduitDaoImpl implements IProduitDao {
 		query.setParameter("pQuantite", pr.getQuantite());
 		query.setParameter("pSelectionne", pr.isSelectionne());
 		query.setParameter("pPhoto", pr.getPhoto());
+		query.setParameter("pIdproduit", pr.getIdProduit());
 		
 		int verif=query.executeUpdate();
 		

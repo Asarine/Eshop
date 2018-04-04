@@ -2,7 +2,9 @@ package fr.adaming.managedBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -25,6 +27,7 @@ public class LigneCommandeManagedBean implements Serializable {
 	private Panier panier;
 	private Produit produit;
 	private LigneCommande ligne;
+	private double totalPanier=0;
 	HttpSession maSession;
 
 	@EJB
@@ -61,21 +64,42 @@ public class LigneCommandeManagedBean implements Serializable {
 	public void setProduit(Produit produit) {
 		this.produit = produit;
 	}
+	
+	
+
+	public LigneCommande getLigne() {
+		return ligne;
+	}
+
+	public void setLigne(LigneCommande ligne) {
+		this.ligne = ligne;
+	}
+
+	public double getTotalPanier() {
+		return totalPanier;
+	}
+
+	public void setTotalPanier(double totalPanier) {
+		this.totalPanier = totalPanier;
+	}
 
 	// Méthodes métier
-	public void ajouterLigneCommande() {
+	public String ajouterLigneCommande() {
 		boolean verif=true;
+		Produit pOut=produitService.getProduitById(this.produit);
+		pOut.setQuantSouhait(produit.getQuantSouhait());
+		this.ligne.setProd(pOut);
 		this.panier=(Panier) maSession.getAttribute("monPanier");
 		if (panier==null){
 			panier=new Panier();
 			panier.setListeLignes(new ArrayList<>());
-			this.ligne.setQuantite(this.produit.getQuantite());
-			this.ligne.setPrix(this.produit.getPrix() * this.ligne.getQuantite());
-			this.ligne.setProd(this.produit);
+			this.ligne.setQuantite(this.ligne.getProd().getQuantSouhait());
+			this.ligne.setPrix(this.ligne.getProd().getPrix()* this.ligne.getQuantite());
 			LigneCommande ligneOut = ligneService.addLigneCommande(ligne);
 			panier.getListeLignes().add(ligneOut);
+			totalPanier=ligneOut.getPrix();
 			maSession.setAttribute("monPanier", panier);
-			
+			maSession.setAttribute("total", totalPanier);
 		}else{
 			for (LigneCommande lg:panier.getListeLignes()){
 				if (lg.getProd().getIdProduit()==this.produit.getIdProduit()){
@@ -83,26 +107,28 @@ public class LigneCommandeManagedBean implements Serializable {
 				}
 			}
 			if (verif){
-				this.ligne.setQuantite(this.produit.getQuantite());
+				this.ligne.setQuantite(this.ligne.getProd().getQuantSouhait());
 				this.ligne.setPrix(this.produit.getPrix() * this.ligne.getQuantite());
 				this.ligne.setProd(this.produit);
 				LigneCommande ligneOut = ligneService.addLigneCommande(ligne);
 				panier.getListeLignes().add(ligneOut);
+				totalPanier=(double) maSession.getAttribute("total")+ligneOut.getPrix();
+				maSession.setAttribute("total", totalPanier);
 				maSession.setAttribute("monPanier", panier);
 			}else{
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit déjà ajouté"));
 			}
 		}
-	}
-	public void supprimerPanier(){
-		maSession.setAttribute("monPanier", null);
-	}
-	
-	public String ajouterPanier(){
 		
-		System.out.println("llllllllllll-----------------------------------");
-		Produit prodOut = produitService.getProduitById(produit);
-		this.produit=prodOut;
 		return "ajoutPanier";
 	}
+
+	public String supprimerPanier(){
+		
+		Calendar cd=Calendar.getInstance();
+		Date datecrea=cd.getTime();
+		maSession.setAttribute("monPanier", null);
+		return "choup";
+	}
+	
 }

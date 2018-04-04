@@ -16,9 +16,9 @@ public class ProduitServiceImpl implements IProduitService {
 	private IProduitDao produitDao;
 	
 	@Override
-	public List<Produit> getAllProduits(Produit pr) {
+	public List<Produit> getAllProduits() {
 		
-		return null;
+		return produitDao.getAllProduits();
 	}
 
 	@Override

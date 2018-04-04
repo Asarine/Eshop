@@ -34,7 +34,12 @@ public class Produit {
 	private byte[] photo;
 	
 	@Transient
+	private int quantSouhait;
+	
+	@Transient
 	private String image;
+
+	
 
 	// Transformation de l'association UML en JAVA
 	@ManyToOne
@@ -147,13 +152,20 @@ public class Produit {
 		this.quantite = quantite;
 	}
 	
-
 	public String getImage() {
 		return image;
 	}
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public int getQuantSouhait() {
+		return quantSouhait;
+	}
+
+	public void setQuantSouhait(int quantSouhait) {
+		this.quantSouhait = quantSouhait;
 	}
 
 	// Rédéfinition toString
