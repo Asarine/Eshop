@@ -14,5 +14,7 @@ public interface ILigneCommandeDao {
 	
 	public LigneCommande addLigneCommande(LigneCommande lgComm);
 	
+	public int updateLigneCommande(LigneCommande lgComm);
+	
 
 }

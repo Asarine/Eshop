@@ -30,4 +30,17 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao{
 		return lgComm;
 	}
 
+	@Override
+	public int updateLigneCommande(LigneCommande lgComm) {
+		String req1="UPDATE LigneCommande AS lComm SET lComm.quantite=:pQuantite, lComm.prix=:pPrix, lComm.prod.idProduit=:pIdProduit, lComm.commande.idCommande=:pIdCommande WHERE lComm.idLComm=:pId";
+		Query query1=em.createQuery(req1);
+		query1.setParameter("pQuantite", lgComm.getQuantite());
+		query1.setParameter("pPrix", lgComm.getPrix());
+		query1.setParameter("pIdProduit", lgComm.getProd().getIdProduit());
+		query1.setParameter("pIdCommande", lgComm.getCommande().getIdCommande());
+		query1.setParameter("pId", lgComm.getIdLComm());
+		
+		return query1.executeUpdate();
+	}
+
 }

@@ -14,21 +14,13 @@
 <ui:define name="header">
 <h1 style="color:yellow">Vente d'animaux</h1>
 <h:form>
-<h:outputText value="#{clMB.client.nomClient}"/>
+<h:outputText value="#{sessionScope.clientSession.nomClient}"/>
 <br/>
 <h:commandLink value="Modifier" action="#{clMB.modifClientavecLien}"/>
 <br/>
 <h:commandLink value="Supprimer" action="#{clMB.suppClient}"/>
 <br/>
 <h:commandLink value="Se déconnecter" action="#{clMB.decoClient}"/>
-</h:form>
-
-<h:form>
-
-<p:breadCrumb>
-    <p:menuitem value="Créer commande" url="ajoutCmd.xhtml" />
-</p:breadCrumb>
-
 </h:form>
 
 </ui:define>
@@ -54,8 +46,57 @@
 
     </p:carousel>
     </h:form>
-    
-<h:messages style="color:crimson"/>
+    </ui:define>
+<ui:define name="corps">
+<h1 style="color:violet; text-align:center">Accueil</h1>
+<h:form>
+<p:carousel value="#{catMB.listecat}" headerText="Categories" var="cat" itemStyle="text-align:center">
+        <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+            <f:facet name="header">
+                <h:graphicImage value="#{cat.image}" style="height:100px;width:100px"/>
+            </f:facet>
+ 
+            <h:outputText value="Nom" />
+            <h:outputText value="#{cat.nomCategorie}" />
+ 
+            <h:outputText value="Description" />
+            <h:outputText value="#{cat.description}" />
+             <p:commandLink value="Afficher produits" action="#{prMB.rechercherProduitCat}" update="prodSelect">
+					<f:setPropertyActionListener value="#{cat.idCategorie}" target="#{prMB.categorie.idCategorie}"/>
+			</p:commandLink>
+        </p:panelGrid>
+    </p:carousel>
+    </h:form>
+    	<h:form id="prodSelect">
+		<p:dataTable var="prod" value="#{prMB.listeProduit}">
+			<p:column>
+				<h:outputText value="#{prod.idProduit}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{prod.designation}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{prod.description}" />
+			</p:column>
+			<p:column headerText="Quantité disponible">
+				<h:outputText value="#{prod.quantite}" />
+			</p:column>
+			<p:column headerText="Prix">
+				<h:outputText value="#{prod.prix}" />
+			</p:column>
+
+			<p:column headerText="Quantité souhaitée">
+				<p:spinner value="#{prod.quantSouhait}" min="0" max="#{prod.quantite}" />
+			</p:column>
+			<p:column>
+				<p:commandLink value="Ajouter au panier" action="#{lcMB.ajouterLigneCommande}" update="@all">
+					<f:setPropertyActionListener value="#{prod}" target="#{lcMB.produit}"/>
+			</p:commandLink>
+			</p:column>
+
+		</p:dataTable>
+
+	</h:form>
 </ui:define>
 </ui:composition>
 </h:body>
