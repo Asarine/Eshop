@@ -1,5 +1,6 @@
 package fr.adaming.managedBean;
 
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,14 +15,18 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import com.itextpdf.text.DocumentException;
+
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
 import fr.adaming.model.Produit;
+import fr.adaming.service.EnvoyerMail;
 import fr.adaming.service.ICommandeService;
 import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
+import fr.adaming.service.PdfService;
 
 @ManagedBean(name = "lcMB")
 @RequestScoped
@@ -156,6 +161,13 @@ public class LigneCommandeManagedBean implements Serializable {
 				}
 			}
 			if (cOut != null) {
+				try {
+					PdfService.Facture(cOut);
+				} catch (FileNotFoundException | DocumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				EnvoyerMail.envoyerMessageFacture(clientOut.getEmail());
 				maSession.setAttribute("monPanier", null);
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error"));

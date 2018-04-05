@@ -51,7 +51,6 @@ public class ClientManagedBean implements Serializable {
 	public String seConnecter(){
 		try{
 			this.client=clientService.isExist(client);
-			EnvoyerMail.envoyerMessageAjout(client.getEmail());
 			//Ajouter le client à la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clientSession", client);
 			return "accueilClient";
@@ -66,6 +65,7 @@ public class ClientManagedBean implements Serializable {
 		Client clAjout=clientService.addClient(this.client);
 		if (clAjout.getIdClient()!=0){
 			this.client=clAjout;
+			EnvoyerMail.envoyerMessageAjout(client.getEmail());
 			return seConnecter();
 		}else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'ajout n'a pas été effectué."));
