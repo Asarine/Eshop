@@ -16,13 +16,16 @@
 <h:form>
 <h:outputText value="#{sessionScope.clientSession.nomClient}"/>
 <br/>
-<h:commandLink value="Modifier" action="#{clMB.modifClientavecLien}"/>
+<h:commandLink value="Modifier votre compte" action="#{clMB.modifClientavecLien}"/>
 <br/>
-<h:commandLink value="Supprimer" action="#{clMB.suppClient}"/>
+<h:commandLink value="Supprimer votre compte" action="#{clMB.suppClient}"/>
 <br/>
 <h:commandLink value="Se déconnecter" action="#{clMB.decoClient}"/>
 </h:form>
-
+<h:commandLink action="ajoutPanierClient">
+					<h:graphicImage value="resources/images/IconePanier.jpg"
+						style="width:48px;height:48px;position:absolute;top:100px;left:1550px"></h:graphicImage>
+				</h:commandLink>
 </ui:define>
 <ui:define name="corps">
 <h1 style="color:violet; text-align:center">Accueil</h1>

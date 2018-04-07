@@ -22,6 +22,8 @@ public class ClientServiceImpl implements IClientService {
 
 	@Override
 	public Client addClient(Client cl) {
+		String password=GenerationMotDePasse.genererMotDePasse();
+		cl.setMdp(password);
 		return clientDao.addClient(cl);
 	}
 

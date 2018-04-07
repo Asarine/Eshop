@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,6 +13,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.event.RowEditEvent;
 
 import com.itextpdf.text.DocumentException;
 
@@ -54,7 +55,7 @@ public class LigneCommandeManagedBean implements Serializable {
 	}
 
 	@PostConstruct
-	public void inti() {
+	public void init() {
 
 		this.maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 
@@ -168,6 +169,7 @@ public class LigneCommandeManagedBean implements Serializable {
 					e.printStackTrace();
 				}
 				EnvoyerMail.envoyerMessageFacture(clientOut.getEmail());
+				maSession.setAttribute("total", 0);
 				maSession.setAttribute("monPanier", null);
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error"));
@@ -175,5 +177,43 @@ public class LigneCommandeManagedBean implements Serializable {
 			return "commandes";
 		}
 	}
+	
+	public void supprimerLComm(){
+		this.panier = (Panier) maSession.getAttribute("monPanier");
+		this.totalPanier=(double) maSession.getAttribute("total");
+		for (LigneCommande lg : panier.getListeLignes()) {
+			if (lg.getIdLComm() == this.ligne.getIdLComm()) {
+				totalPanier=totalPanier-lg.getPrix();
+				panier.getListeLignes().remove(lg);
+				ligneService.deleteLigneCommande(lg);
+			}
+		
+			}
+		maSession.setAttribute("total", totalPanier);
+		maSession.setAttribute("monPanier", panier);
+	}
+	
+	public void onRowEdit(RowEditEvent event) {
+		this.panier = (Panier) maSession.getAttribute("monPanier");
+		this.totalPanier=(double) maSession.getAttribute("total");
+		LigneCommande ligneModif=(LigneCommande) event.getObject();
+		for (LigneCommande lg : panier.getListeLignes()) {
+			if (lg.getIdLComm() == ligneModif.getIdLComm()) {
+				this.totalPanier=(double) maSession.getAttribute("total")-ligneModif.getPrix();
+				ligneModif.setPrix(ligneModif.getQuantite()*ligneModif.getProd().getPrix());
+				this.totalPanier=totalPanier+ligneModif.getPrix();
+				int ind=panier.getListeLignes().lastIndexOf(lg);
+				panier.getListeLignes().set(ind,ligneModif);
+				int verif=ligneService.updateLigneCommande2(ligneModif);
+		        FacesMessage msg = new FacesMessage("Commande modifiée");
+		        FacesContext.getCurrentInstance().addMessage(null, msg);
+		        maSession.setAttribute("total", totalPanier);
+				maSession.setAttribute("monPanier", panier);
+			}
+		
+			}
+		
 
+}
+     
 }

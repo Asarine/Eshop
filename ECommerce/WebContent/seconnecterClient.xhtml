@@ -19,14 +19,18 @@
 		Mot de passe <h:inputSecret value="#{clMB.client.mdp}" />
 		<h:commandButton value="Connexion" action="#{clMB.seConnecter}" />
 		<h:commandLink value="Pas encore inscrit ?" action="ajoutClient"/>
-		<br/>
-		<h:commandLink value="Retour à l'accueil" action="accueil"/>
 	</h:panelGrid>
+	<h:commandLink action="accueil"><h:graphicImage value="resources/images/Icone.png" style="width:48px;height:48px;position:absolute;top:100px;left:1500px"></h:graphicImage></h:commandLink>
+	<h:commandLink action="ajoutPanier">
+					<h:graphicImage value="resources/images/IconePanier.jpg"
+						style="width:48px;height:48px;position:absolute;top:100px;left:1550px"></h:graphicImage>
+				</h:commandLink>
 	</h:form>
 </ui:define>
 <ui:define name="corps">
 <h1 style="color:violet; text-align:center">Connexion</h1>
 <h:form>
+<h:messages style="color:crimson"/>
 	<h:panelGrid columns="2">
 		Mail : <h:inputText value="#{clMB.client.email}" />
 		Mot de passe <h:inputSecret value="#{clMB.client.mdp}" />
@@ -34,7 +38,7 @@
 	</h:panelGrid>
 	<h:commandLink value="Pas encore inscrit ?" action="ajoutClient"/>
 </h:form>
-<h:messages style="color:crimson"/>
+
 </ui:define>
 </ui:composition>
 

@@ -16,38 +16,90 @@
 <h:form>
 <h:outputText value="#{sessionScope.clientSession.nomClient}"/>
 <br/>
-<h:commandLink value="Modifier" action="#{clMB.modifClientavecLien}"/>
+<h:commandLink value="Modifier votre compte" action="#{clMB.modifClientavecLien}"/>
 <br/>
-<h:commandLink value="Supprimer" action="#{clMB.suppClient}"/>
+<h:commandLink value="Supprimer votre compte" action="#{clMB.suppClient}"/>
 <br/>
 <h:commandLink value="Se déconnecter" action="#{clMB.decoClient}"/>
+<h:commandLink action="accueil"><h:graphicImage value="resources/images/Icone.png" style="width:48px;height:48px;position:absolute;top:100px;left:1500px"></h:graphicImage></h:commandLink>
 </h:form>
 
 </ui:define>
 
 <ui:define name="corps">
-			<h1 style="color: violet; text-align: center">Mon panier</h1>
-			<h:form>
-				<p:dataTable var="ligne" value="#{lcMB.panier.listeLignes}">
+			<h:form id="form">
+				<p:dataTable id="cars1" var="ligne"
+					value="#{sessionScope.monPanier.listeLignes}" editable="true"
+					style="margin-bottom:20px" >
+
+					<p:ajax event="rowEdit" listener="#{lcMB.onRowEdit}"/>
+					<p:ajax event="rowEditCancel" listener="#{lcMB.onRowEdit}"/>
+
+					<p:column headerText="Id">
+						<h:outputText value="#{ligne.idLComm}" />
+					</p:column>
+
 					<p:column headerText="Achat">
 						<h:outputText value="#{ligne.prod.designation}" />
 					</p:column>
+
 					<p:column>
 						<h:outputText value="#{ligne.prod.description}" />
-					</p:column>7<p:column>
+					</p:column>
+
+					<p:column headerText="Prix">
 						<h:outputText value="#{ligne.prod.prix}" />
 					</p:column>
+
 					<p:column headerText="Quantité">
-						<h:outputText value="#{ligne.quantite}" />
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{ligne.quantite}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:spinner value="#{ligne.quantite}" min="0"
+									max="#{ligne.prod.quantite}" > 
+								</p:spinner>
+							</f:facet>
+						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Prix">
-						<h:outputText value="#{ligne.prix}" />
+
+					<p:column headerText="Sous-total">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{ligne.prix}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{ligne.prix}" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
 					</p:column>
+					<p:column>
+						<p:commandLink value="Supprimer" action="#{lcMB.supprimerLComm}"
+							update="@all">
+							<f:setPropertyActionListener value="#{ligne.idLComm}"
+								target="#{lcMB.ligne.idLComm}" />
+						</p:commandLink>
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:rowEditor />
+					</p:column>
+
 				</p:dataTable>
-				<h2 style="position:absolute;left:1600px">TOTAL : <h:outputText value="#{lcMB.totalPanier}"></h:outputText> </h2>
-				<h:commandButton style="position:absolute;left:1600px" value="Commander" action="#{lcMB.supprimerPanier}"></h:commandButton>
-<h2><h:messages style="color:crimson"/></h2>
+
+				<h2 style="position: absolute; left: 1600px">
+					TOTAL :
+					<h:outputText id="prix" value="#{sessionScope.total}"></h:outputText>
+				</h2>
+				<h:commandButton value="Rafraîchir" action="ajoutPanier" style="position:absolute;left:1600px;top:360px"></h:commandButton>
+				<h:commandButton style="position:absolute;left:1600px;top:400px"
+					value="Commander" action="#{lcMB.supprimerPanier}"></h:commandButton>
+				<h2>
+					<h:messages style="color:crimson" />
+				</h2>
 			</h:form>
+
 		</ui:define>
 	</ui:composition>
 

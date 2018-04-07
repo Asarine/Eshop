@@ -1,5 +1,6 @@
 package fr.adaming.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "categories")
-public class Categorie {
+public class Categorie implements Serializable{
 
 	// Déclaration des attributs
 	@Id

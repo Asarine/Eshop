@@ -7,44 +7,60 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<title>Modification Client</title>
+	<title>Modification Client</title>
 </h:head>
 <h:body>
-<ui:composition template="/template/layout.xhtml">
-<ui:define name="header">
-<h1 style="color:yellow">Vente d'animaux</h1>
-<h:form>
-<h:outputText value="#{clMB.client.nomClient}"/>
-<br/>
-<h:commandLink value="Retour à l'accueil" action="accueilClient"/>
-<br/>
-<h:commandLink value="Modifier" action="#{clMB.modifClientavecLien}"/>
-<br/>
-<h:commandLink value="Supprimer" action="#{clMB.suppClient}"/>
-<br/>
-<h:commandLink value="Se déconnecter" action="#{clMB.decoClient}"/>
-</h:form>
-</ui:define>
-<ui:define name="corps">
-<h1 style="color: violet; text-align: center">Modifier client</h1>
-	<h:form>
-		<h:panelGrid columns="2">
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="header">
+			<h1 style="color: yellow">Vente d'animaux</h1>
+			<h:form>
+				<h:outputText value="#{clMB.client.nomClient}" />
+				<br />
+				<h:commandLink value="Modifier votre compte"
+					action="#{clMB.modifClientavecLien}" />
+				<br />
+				<h:commandLink value="Supprimer votre compte"
+					action="#{clMB.suppClient}" />
+				<br />
+				<h:commandLink value="Se déconnecter" action="#{clMB.decoClient}" />
+				<h:commandLink action="accueil">
+					<h:graphicImage value="resources/images/Icone.png"
+						style="width:48px;height:48px;position:absolute;top:100px;left:1500px"></h:graphicImage>
+				</h:commandLink>
+				<h:commandLink action="ajoutPanierClient">
+					<h:graphicImage value="resources/images/IconePanier.jpg"
+						style="width:48px;height:48px;position:absolute;top:100px;left:1550px"></h:graphicImage>
+				</h:commandLink>
+			</h:form>
+		</ui:define>
+		<ui:define name="corps">
+			<h1 style="color: violet; text-align: center">Modifier client</h1>
+			<h:form>
+				<h:panelGrid columns="2">
 Nom : <h:inputText value="#{clMB.client.nomClient}" />
 Adresse : <h:inputText value="#{clMB.client.adresse}" />
 Code postal : <h:inputText value="#{clMB.client.codePostal}" />
 Ville : <h:inputText value="#{clMB.client.ville}" />
 Mail : <h:inputText value="#{clMB.client.email}" />
 Téléphone : <h:inputText value="#{clMB.client.tel}" />
-Mot de passe : <h:inputSecret />
-Veuillez confirmer votre mot de passe : <h:inputSecret value="#{clMB.client.mdp}" />
-			<h:commandButton value="Modifier" action="#{clMB.modifierClient}"></h:commandButton>
-		</h:panelGrid>
-	</h:form>
+Mot de passe : <h:inputSecret value="#{clMB.mdp}">
+						<f:validateLength minimum="8" />
+						<f:validateRequired />
+					</h:inputSecret>
+Veuillez confirmer votre mot de passe : <h:inputSecret
+						value="#{clMB.client.mdp}" validator="#{clMB.validerMdp}">
+						<f:validateLength minimum="8" />
+						<f:validateRequired />
+					</h:inputSecret>
+					<h:commandButton value="Modifier" action="#{clMB.modifierClient}"></h:commandButton>
+				</h:panelGrid>
+				<h:messages style="color:crimson" />
+			</h:form>
 
-<h:messages style="color:crimson"/>
+			
 
-</ui:define>
-</ui:composition>
+		</ui:define>
+	</ui:composition>
 
 </h:body>
 </html>

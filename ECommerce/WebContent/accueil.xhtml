@@ -23,6 +23,10 @@
 		<h:commandButton value="Connexion" action="#{clMB.seConnecter}" />
 		<h:commandLink value="Pas encore inscrit ?" action="ajoutClient"/>
 	</h:panelGrid>
+	<h:commandLink action="ajoutPanier">
+					<h:graphicImage value="resources/images/IconePanier.jpg"
+						style="width:48px;height:48px;position:absolute;top:100px;left:1550px"></h:graphicImage>
+				</h:commandLink>
 	</h:form>
 </ui:define>
 <ui:define name="corps">
@@ -64,7 +68,8 @@
 			</p:column>
 
 			<p:column headerText="Quantité souhaitée">
-				<p:spinner value="#{prod.quantSouhait}" min="0" max="#{prod.quantite}" />
+				<p:spinner value="#{prod.quantSouhait}" min="1" max="#{prod.quantite}">
+				</p:spinner>
 			</p:column>
 			<p:column>
 				<p:commandLink value="Ajouter au panier" action="#{lcMB.ajouterLigneCommande}" update="@all">

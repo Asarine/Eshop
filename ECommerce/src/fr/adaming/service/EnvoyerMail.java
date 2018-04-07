@@ -18,8 +18,10 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import fr.adaming.model.Client;
+
 public class EnvoyerMail {
-	public static void envoyerMessageAjout(String mailRecup) {
+	public static void envoyerMessageAjout(Client cl) {
 	final String username = "sophie.marcerou.georges@gmail.com";
 	final String password = "353cv2vj";
 
@@ -45,7 +47,7 @@ public class EnvoyerMail {
 		message.setFrom(new InternetAddress("sophie.marcerou.georges@gmail.com"));
 
 		// Set To: header field of the header.
-		message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailRecup));
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(cl.getEmail()));
 
 		// Set Subject: header field
 		message.setSubject("Ajout client");
@@ -53,7 +55,7 @@ public class EnvoyerMail {
 		
 
          // Send the actual HTML message, as big as you like
-         message.setContent("Bonjour, <br/> Nous vous annonçons que votre inscription a été réalisée avec succès. <br/> Bien cordialement <br> Le service Client", "text/html");
+         message.setContent("Bonjour, <br/> Nous vous annonçons que votre inscription a été réalisée avec succès. <br/> Votre mot de passe est :<br/>"+cl.getMdp()+"<br/>Vous pourrez le changer après votre première connexion. <br/>Bien cordialement <br> Le service Client", "text/html");
 
          // Send message
          Transport.send(message, message.getAllRecipients());

@@ -16,5 +16,11 @@ public interface ILigneCommandeDao {
 	
 	public int updateLigneCommande(LigneCommande lgComm);
 	
+	public void deleteLigneCommande(LigneCommande lgComm);
+	
+	public LigneCommande getLigneById(long id);
+	
+	public int updateLigneCommande2(LigneCommande lgComm);
+	
 
 }

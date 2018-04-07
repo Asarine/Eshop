@@ -7,7 +7,9 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Categorie;
@@ -21,6 +23,7 @@ public class ClientManagedBean implements Serializable {
 	
 	//Attributs
 	private Client client;
+	private String mdp;
 	HttpSession maSession;
 	
 	@EJB
@@ -30,6 +33,7 @@ public class ClientManagedBean implements Serializable {
 	public ClientManagedBean() {
 		super();
 		this.client = new Client();
+		this.mdp=new String();
 	}
 	@PostConstruct
 	public void inti(){
@@ -47,6 +51,12 @@ public class ClientManagedBean implements Serializable {
 		this.client = client;
 	}
 	
+	public String getMdp() {
+		return mdp;
+	}
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
+	}
 	//Méthodes métiers
 	public String seConnecter(){
 		try{
@@ -65,8 +75,9 @@ public class ClientManagedBean implements Serializable {
 		Client clAjout=clientService.addClient(this.client);
 		if (clAjout.getIdClient()!=0){
 			this.client=clAjout;
-			EnvoyerMail.envoyerMessageAjout(client.getEmail());
-			return seConnecter();
+			EnvoyerMail.envoyerMessageAjout(client);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Votre mot de passe vous a été envoyé par mail"));
+			return "seconnecterClient";
 		}else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'ajout n'a pas été effectué."));
 			return "ajoutClient";
@@ -116,5 +127,14 @@ public class ClientManagedBean implements Serializable {
 	public String decoClient(){
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "accueil";
+	}
+	
+public void validerMdp(FacesContext context, UIComponent composant, Object valeur) throws ValidatorException {
+		
+		String saisie=(String) valeur;
+		
+		if (saisie!=mdp) {
+			throw new ValidatorException(new FacesMessage("Le mot de passe répété est différent du premier."));
+		}
 	}
 }

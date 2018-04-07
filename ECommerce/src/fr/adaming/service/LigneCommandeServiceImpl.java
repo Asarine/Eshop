@@ -31,6 +31,24 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService{
 	public int updateLigneCommande(LigneCommande lgComm) {
 		return ligneDao.updateLigneCommande(lgComm);
 	}
+
+	@Override
+	public void deleteLigneCommande(LigneCommande lgComm) {
+		ligneDao.deleteLigneCommande(lgComm);
+		
+	}
+
+	@Override
+	public LigneCommande getLigneById(long id) {
+		return ligneDao.getLigneById(id);
+	}
+
+	@Override
+	public int updateLigneCommande2(LigneCommande lgComm) {
+		return ligneDao.updateLigneCommande2(lgComm);
+	}
+	
+	
 		
 	
 

@@ -16,4 +16,10 @@ public interface ILigneCommandeService {
 	public LigneCommande addLigneCommande(LigneCommande lgComm);
 
 	public int updateLigneCommande(LigneCommande lgComm);
+	
+	public void deleteLigneCommande(LigneCommande lgComm);
+	
+	public LigneCommande getLigneById(long id);
+	
+	public int updateLigneCommande2(LigneCommande lgComm);
 }
