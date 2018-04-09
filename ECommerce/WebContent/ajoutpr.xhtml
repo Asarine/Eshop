@@ -13,7 +13,9 @@
 </h:head>
 
 <h:body>
-
+<ui:composition template="/template/layout.xhtml">
+<ui:define name="corps">
+<h:form>
 <p:breadCrumb>
     <p:menuitem value="Accueil Administrateur" url="accueilAdmin.xhtml" />
     <p:menuitem value="Ajouter produit" url="ajoutpr.xhtml" />
@@ -22,8 +24,12 @@
     <p:menuitem value="Rechercher par catégorie" url="rechprcat.xhtml" />
     <p:menuitem value="Supprimer produit" url="suppPr.xhtml" />
 </p:breadCrumb>
+</h:form>
+</ui:define>
 
-<h:form>
+<ui:define name="corps">
+<h1 style="color: green; text-align: center">Ajouter un produit</h1>
+<h:form enctype="multipart/form-data">
 
 <h:panelGrid columns="2">
 Designation: <h:inputText value="#{prMB.produit.designation}"/>
@@ -31,14 +37,13 @@ Description: <h:inputText value="#{prMB.produit.description}"/>
 Prix: <h:inputText value="#{prMB.produit.prix}"/>
 Quantité: <h:inputText value="#{prMB.produit.quantite}"/>
 Selectionne: <h:inputText value="#{prMB.produit.selectionne}"/>
-Photo: <p:fileUpload value="#{prMB.produit.photo}"/>
-
-<h:commandButton value="Ajouter" action="#{prMB.ajouterProduit}"></h:commandButton>
-
+Photo: <p:fileUpload value="#{prMB.uf}" mode="simple"/>
+<p:commandButton value="Ajouter" ajax="false" action="#{prMB.ajouterProduit}"/>
 </h:panelGrid>
 
 </h:form>
-
+</ui:define>
+</ui:composition>
 </h:body>
 
 </html>

@@ -28,17 +28,23 @@ public class ProduitDaoImpl implements IProduitDao {
 								
 		//Créer un objet query pour envoyer la requête jpql
 		Query query=em.createQuery(req);
+		
+		List<Produit> listeProd=query.getResultList();
+		
+		for (Produit pr : listeProd){
+			pr.setImage("data:image/png;base64,"+Base64.encodeBase64String(pr.getPhoto()));
+		}
 						
 		//envoi de la requete et recup du résultat
 				
-		return query.getResultList();
+		return listeProd;
 			
 	}
 	
 	@Override
 	public Produit addProduit(Produit pr) {
 		
-		pr.setImage("data:image/png;base64,"+Base64.encodeBase64String(cat.getPhoto()));
+		pr.setImage("data:image/png;base64,"+Base64.encodeBase64String(pr.getPhoto()));
 		em.persist(pr);
 		
 		return pr;

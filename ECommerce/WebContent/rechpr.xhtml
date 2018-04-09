@@ -13,7 +13,7 @@
 </h:head>
 
 <h:body>
-
+<ui:composition template="/template/layout.xhtml">
 <h:form>
 <p:breadCrumb>
     <p:menuitem value="Accueil Administrateur" url="accueilAdmin.xhtml" />
@@ -25,8 +25,8 @@
 </p:breadCrumb>
 </h:form>
 
+<ui:define name="corps">
 <h:form>
-
 <h:panelGrid columns="2">
 ID: <h:inputText value="#{prMB.produit.idProduit}"/>
 <h:commandButton value="Rechercher" action="#{prMB.rechercherProduit}"></h:commandButton>
@@ -56,16 +56,13 @@ ID: <h:inputText value="#{prMB.produit.idProduit}"/>
         <h:outputText value="#{pr.quantite}" />
     </p:column>
     
-    <p:column headerText="Selectionne">
-        <h:outputText value="#{pr.selectionne}" />
-    </p:column>
-    
     <p:column headerText="Photo">
         <h:outputText value="#{pr.photo}" />
     </p:column>
 </p:dataTable>
 </h:form>
-
+</ui:define>
+</ui:composition>
 </h:body>
 
 </html>

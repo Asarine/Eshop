@@ -1,6 +1,7 @@
 package fr.adaming.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -29,6 +30,7 @@ public class Produit implements Serializable{
 	private String description;
 	private double prix;
 	private int quantite;
+	
 	@Column(columnDefinition="TINYINT(1)")
 	private boolean selectionne;
 	@Lob
@@ -40,6 +42,8 @@ public class Produit implements Serializable{
 	@Transient
 	private String image;
 
+	@Transient
+	private List<Produit> listeProduits;
 	
 
 	// Transformation de l'association UML en JAVA
@@ -49,6 +53,7 @@ public class Produit implements Serializable{
 
 	@OneToMany(mappedBy = "prod")
 	private List<LigneCommande> listeLCommande;
+	
 
 	// Constructeurs
 	public Produit() {
@@ -168,12 +173,22 @@ public class Produit implements Serializable{
 	public void setQuantSouhait(int quantSouhait) {
 		this.quantSouhait = quantSouhait;
 	}
+	
+	
+
+	public List<Produit> getListeProduits() {
+		return listeProduits;
+	}
+
+	public void setListeProduits(List<Produit> listeProduits) {
+		this.listeProduits = listeProduits;
+	}
 
 	// Rédéfinition toString
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description
-				+ ", prix=" + prix + ", quantite=" + quantite + ", selectionne=" + selectionne + ", photo=" + photo
+				+ ", prix=" + prix + ", quantite=" + quantite + ", selectionne=" + selectionne + ", photo=" +Arrays.toString(photo)
 				+ "]";
 	}
 

@@ -33,7 +33,7 @@ public class CategorieManagedBean implements Serializable{
 
 	//Constructeur vide
 	public CategorieManagedBean() {
-		super();
+		
 		this.cat= new Categorie();
 		this.uf=new UploadedFileWrapper();
 	}

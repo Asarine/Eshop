@@ -31,6 +31,9 @@
 </p:breadCrumb>
 
 </h:form>
+</ui:define>
+
+<ui:define name="corps">
 <h1 style="color: violet; text-align: center">Ajouter une catégorie</h1>
 <h:form enctype="multipart/form-data">
 		<h:panelGrid columns="2">
@@ -42,7 +45,7 @@ Photo : <p:fileUpload value="#{catMB.uf}" mode="simple" />
 	</h:form>
 
 	<h:messages style="color:crimson" />
-	</ui:define>
+</ui:define>	
 	</ui:composition>
 </h:body>
 </html>
