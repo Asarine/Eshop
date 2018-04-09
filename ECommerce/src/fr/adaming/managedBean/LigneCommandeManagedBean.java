@@ -180,17 +180,17 @@ public class LigneCommandeManagedBean implements Serializable {
 	
 	public void supprimerLComm(){
 		this.panier = (Panier) maSession.getAttribute("monPanier");
-		this.totalPanier=(double) maSession.getAttribute("total");
 		for (LigneCommande lg : panier.getListeLignes()) {
 			if (lg.getIdLComm() == this.ligne.getIdLComm()) {
-				totalPanier=totalPanier-lg.getPrix();
+				this.totalPanier=(double) maSession.getAttribute("total")-lg.getPrix();
 				panier.getListeLignes().remove(lg);
 				ligneService.deleteLigneCommande(lg);
+				maSession.setAttribute("total", totalPanier);
+				maSession.setAttribute("monPanier", panier);
 			}
 		
 			}
-		maSession.setAttribute("total", totalPanier);
-		maSession.setAttribute("monPanier", panier);
+		
 	}
 	
 	public void onRowEdit(RowEditEvent event) {

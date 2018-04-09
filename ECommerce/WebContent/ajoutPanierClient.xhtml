@@ -30,7 +30,7 @@
 			<h:form id="form">
 				<p:dataTable id="cars1" var="ligne"
 					value="#{sessionScope.monPanier.listeLignes}" editable="true"
-					style="margin-bottom:20px" >
+					style="margin-bottom:20px" emptyMessage="Pas de commande en cours">
 
 					<p:ajax event="rowEdit" listener="#{lcMB.onRowEdit}"/>
 					<p:ajax event="rowEditCancel" listener="#{lcMB.onRowEdit}"/>
